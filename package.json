@@ -18,6 +18,8 @@
     "emulators:export": "firebase emulators:export ./firebase-emulator-data",
     "emulators:import": "firebase emulators:start --import=./firebase-emulator-data",
     "emulators:ui": "firebase emulators:start --only ui",
+    "seed:sprint1": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/sprint1-users.ts",
+    "seed:sprint1:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/sprint1-users.ts",
     "seed:users": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-users.ts",
     "seed:users:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/seed-users.ts",
     "seed:data": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-test-data.ts",
@@ -55,7 +57,6 @@
   "devDependencies": {
     "@faker-js/faker": "^10.0.0",
     "@playwright/test": "^1.55.1",
-    "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
@@ -64,7 +65,7 @@
     "eslint-config-next": "^15.5.4",
     "firebase-tools": "^14.17.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.13",
+    "tailwindcss": "^3.4.17",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   }
