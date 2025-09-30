@@ -1,0 +1,70 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isValidImageType() {
+      return request.resource.contentType.matches('image/.*');
+    }
+
+    function isValidFileSize(maxSizeMB) {
+      return request.resource.size < maxSizeMB * 1024 * 1024;
+    }
+
+    // Profile pictures
+    match /profile-pictures/{userId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+                    isOwner(userId) &&
+                    isValidImageType() &&
+                    isValidFileSize(5);
+    }
+
+    // Post images
+    match /post-images/{postId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+                    isValidImageType() &&
+                    isValidFileSize(10);
+      allow delete: if isSignedIn();
+    }
+
+    // Group images
+    match /group-images/{groupId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+                    isValidImageType() &&
+                    isValidFileSize(5);
+    }
+
+    // Event images
+    match /event-images/{eventId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+                    isValidImageType() &&
+                    isValidFileSize(10);
+    }
+
+    // Message attachments
+    match /message-attachments/{userId}/{fileName} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() &&
+                    isOwner(userId) &&
+                    isValidFileSize(20);
+    }
+
+    // Default deny all
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

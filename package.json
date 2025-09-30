@@ -1,0 +1,70 @@
+{
+  "name": "zipparents-v1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm run dev:local",
+    "dev:local": "NEXT_PUBLIC_FIREBASE_ENV=local next dev --turbopack",
+    "dev:dev": "NEXT_PUBLIC_FIREBASE_ENV=dev next dev --turbopack",
+    "dev:prod": "NEXT_PUBLIC_FIREBASE_ENV=prod next dev --turbopack",
+    "build": "next build",
+    "build:dev": "NEXT_PUBLIC_FIREBASE_ENV=dev next build",
+    "build:prod": "NEXT_PUBLIC_FIREBASE_ENV=prod next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "emulators:start": "firebase emulators:start --import=./firebase-emulator-data --export-on-exit",
+    "emulators:export": "firebase emulators:export ./firebase-emulator-data",
+    "emulators:import": "firebase emulators:start --import=./firebase-emulator-data",
+    "emulators:ui": "firebase emulators:start --only ui",
+    "seed:users": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-users.ts",
+    "seed:users:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/seed-users.ts",
+    "seed:data": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-test-data.ts",
+    "seed:data:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/seed-test-data.ts",
+    "seed:local": "npm run seed:data",
+    "seed:dev": "npm run seed:data:dev",
+    "clear-data:local": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/clear-data.ts",
+    "clear-data:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/clear-data.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:local": "TEST_ENV=local playwright test",
+    "test:e2e:dev": "TEST_ENV=dev playwright test",
+    "test:e2e:prod": "TEST_ENV=prod playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhie1singh/zipparents-v1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhie1singh/zipparents-v1/issues"
+  },
+  "homepage": "https://github.com/abhie1singh/zipparents-v1#readme",
+  "dependencies": {
+    "firebase": "^12.3.0",
+    "firebase-admin": "^13.5.0",
+    "next": "^15.5.4",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.6.0",
+    "@types/react": "^19.1.16",
+    "@types/react-dom": "^19.1.9",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.36.0",
+    "eslint-config-next": "^15.5.4",
+    "firebase-tools": "^14.17.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
+  }
+}
