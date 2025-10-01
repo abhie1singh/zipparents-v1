@@ -168,6 +168,49 @@ service cloud.firestore {
         resource.data.userId == request.auth.uid;
     }
 
+    // Connections collection (Sprint 3)
+    match /connections/{connectionId} {
+      // Users can read connections they're part of
+      allow read: if isAuthenticated() && isAgeVerified() &&
+        (resource.data.fromUserId == request.auth.uid ||
+         resource.data.toUserId == request.auth.uid);
+
+      // Email verified and age verified users can create connection requests
+      allow create: if isEmailVerified() && isAgeVerified() &&
+        request.resource.data.fromUserId == request.auth.uid &&
+        request.resource.data.status == 'pending' &&
+        request.resource.data.keys().hasAll(['fromUserId', 'toUserId', 'status', 'createdAt', 'updatedAt']);
+
+      // Users can update connections they're the recipient of (to accept/decline)
+      allow update: if isEmailVerified() && isAgeVerified() &&
+        resource.data.toUserId == request.auth.uid &&
+        resource.data.fromUserId == request.resource.data.fromUserId &&
+        resource.data.toUserId == request.resource.data.toUserId &&
+        (request.resource.data.status == 'accepted' || request.resource.data.status == 'declined');
+
+      // Users can delete connections they're part of
+      allow delete: if isAuthenticated() && isAgeVerified() &&
+        (resource.data.fromUserId == request.auth.uid ||
+         resource.data.toUserId == request.auth.uid);
+    }
+
+    // Profiles collection (Sprint 2+)
+    match /profiles/{profileId} {
+      // Anyone authenticated can read public profiles (for search)
+      allow read: if isAuthenticated();
+
+      // Users can create their own profile
+      allow create: if isOwner(profileId) &&
+        request.resource.data.uid == profileId;
+
+      // Users can update their own profile
+      allow update: if isOwner(profileId) &&
+        request.resource.data.uid == resource.data.uid;
+
+      // Users can delete their own profile
+      allow delete: if isOwner(profileId);
+    }
+
     // Default deny all other documents
     match /{document=**} {
       allow read, write: if false;

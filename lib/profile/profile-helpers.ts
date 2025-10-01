@@ -30,6 +30,38 @@ export async function updateProfile(userId: string, data: Partial<User>): Promis
 }
 
 /**
+ * Get user profile by ID
+ */
+export async function getProfile(userId: string): Promise<PublicProfile> {
+  const app = getFirebaseApp();
+  if (!app) throw new Error('Firebase not initialized');
+
+  const db = getFirestore(app);
+
+  // Try profiles collection first
+  const profileRef = doc(db, 'profiles', userId);
+  const profileSnap = await getDoc(profileRef);
+
+  if (profileSnap.exists()) {
+    return {
+      uid: userId,
+      ...profileSnap.data()
+    } as PublicProfile;
+  }
+
+  // Fall back to users collection
+  const userRef = doc(db, 'users', userId);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    throw new Error('Profile not found');
+  }
+
+  const userData = userSnap.data() as User;
+  return sanitizeProfileForPublic(userData);
+}
+
+/**
  * Completes onboarding and marks profile as complete
  */
 export async function completeOnboarding(userId: string, profileData: Partial<User>): Promise<void> {
@@ -47,6 +79,11 @@ export async function completeOnboarding(userId: string, profileData: Partial<Us
   };
 
   await updateDoc(userRef, updatedData);
+
+  // Also create/update profile document
+  const profileRef = doc(db, 'profiles', userId);
+  const profileData$ = sanitizeProfileForPublic({ uid: userId, ...updatedData } as User);
+  await setDoc(profileRef, profileData$);
 }
 
 /**

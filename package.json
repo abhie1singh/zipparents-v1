@@ -50,6 +50,7 @@
   },
   "homepage": "https://github.com/abhie1singh/zipparents-v1#readme",
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "firebase": "^12.3.0",
     "firebase-admin": "^13.5.0",
     "next": "^15.5.4",
