@@ -18,6 +18,9 @@ const BASE_URLS = {
 export default defineConfig({
   testDir: './tests',
 
+  // Global setup to reset database before tests
+  globalSetup: testEnv === 'local' ? './tests/global-setup.ts' : undefined,
+
   // Maximum time one test can run for
   timeout: 30 * 1000,
 
@@ -25,7 +28,7 @@ export default defineConfig({
   testMatch: '**/*.spec.ts',
 
   // Run tests in files in parallel
-  fullyParallel: true,
+  fullyParallel: false, // Changed to false to avoid race conditions with shared test data
 
   // Fail the build on CI if you accidentally left test.only in the source code
   forbidOnly: !!process.env.CI,
