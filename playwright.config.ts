@@ -62,6 +62,9 @@ export default defineConfig({
 
     // Navigation timeout
     navigationTimeout: 15 * 1000,
+
+    // Start each test with a clean browser context (clears storage)
+    storageState: undefined,
   },
 
   // Configure projects for major browsers

@@ -135,15 +135,28 @@ async function seedUsers() {
         }
       }
 
+      // Determine if email should be verified based on scenario
+      const shouldVerifyEmail = userData.scenario.toLowerCase().includes('verified') && !userData.scenario.includes('Unverified');
+
       // Create Firebase Auth user
       userRecord = await auth.createUser({
         email: userData.email,
         password: userData.password,
         displayName: userData.displayName,
-        emailVerified: userData.scenario.includes('verified') && !userData.scenario.includes('Unverified'),
+        emailVerified: shouldVerifyEmail,
       });
 
       console.log(`  Created Auth user: ${userRecord.uid}`);
+      console.log(`  Should verify: ${shouldVerifyEmail}, Actual verified: ${userRecord.emailVerified}`);
+
+      // Always update for users that should be verified to ensure it sticks in emulator
+      if (shouldVerifyEmail) {
+        await auth.updateUser(userRecord.uid, {
+          emailVerified: true,
+        });
+        userRecord = await auth.getUser(userRecord.uid);
+        console.log(`  Updated email verified: ${userRecord.emailVerified}`);
+      }
 
       // Create Firestore user document
       const isAdmin = userData.email.includes('admin.test');

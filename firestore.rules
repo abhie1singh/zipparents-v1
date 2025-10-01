@@ -55,10 +55,36 @@ service cloud.firestore {
         request.resource.data.createdAt == resource.data.createdAt &&
         // Ensure emailVerified can only go from false to true (via Firebase Auth)
         (request.resource.data.emailVerified == resource.data.emailVerified ||
-         (resource.data.emailVerified == false && request.resource.data.emailVerified == true));
+         (resource.data.emailVerified == false && request.resource.data.emailVerified == true)) &&
+        // Profile fields validations (Sprint 2)
+        (request.resource.data.displayName is string && request.resource.data.displayName.size() >= 2 && request.resource.data.displayName.size() <= 50) &&
+        (request.resource.data.zipCode is string && request.resource.data.zipCode.matches('^[0-9]{5}$')) &&
+        (!('bio' in request.resource.data) || (request.resource.data.bio is string && request.resource.data.bio.size() <= 500)) &&
+        (!('interests' in request.resource.data) || (request.resource.data.interests is list && request.resource.data.interests.size() >= 3 && request.resource.data.interests.size() <= 20)) &&
+        (!('photoURL' in request.resource.data) || request.resource.data.photoURL is string) &&
+        // verificationStatus can only be changed by admins (via separate admin function)
+        (!('verificationStatus' in request.resource.data) || request.resource.data.verificationStatus == resource.data.verificationStatus);
 
       // Users can delete their own profile
       allow delete: if isOwner(userId);
+    }
+
+    // Verification requests collection (Sprint 2)
+    match /verificationRequests/{requestId} {
+      // Only admins can read verification requests
+      allow read: if isAdmin();
+
+      // Users can create verification requests for themselves
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.status == 'pending' &&
+        request.resource.data.keys().hasAll(['userId', 'userEmail', 'userName', 'notes', 'status', 'createdAt']);
+
+      // Only admins can update verification requests (to approve/reject)
+      allow update: if isAdmin();
+
+      // Only admins can delete verification requests
+      allow delete: if isAdmin();
     }
 
     // Posts collection (Sprint 2+)

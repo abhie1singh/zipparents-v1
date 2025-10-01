@@ -55,8 +55,15 @@ export async function signUp(data: SignUpData): Promise<{ user: FirebaseUser; re
       displayName: data.displayName,
     });
 
+    // Reload user to ensure auth token is fresh
+    await user.reload();
+
+    // Get fresh ID token to ensure auth context is available for Firestore rules
+    await user.getIdToken(true);
+
     // Create user document in Firestore
-    const userData: Omit<User, 'uid'> = {
+    const userData: User = {
+      uid: user.uid,
       email: data.email,
       displayName: data.displayName,
       emailVerified: false,
