@@ -114,6 +114,104 @@ npm run test:e2e:local tests/e2e/sprint1
 - Post creation and editing
 - Local feed filtering by zip code
 
+## ✅ Sprint 4: Completed Features
+
+Sprint 4 introduces real-time messaging and comprehensive safety features to enable secure parent-to-parent communication.
+
+### Messaging System
+- ✅ **Conversations List** - View all conversations with unread counts and timestamps
+- ✅ **Message Thread** - Real-time 1-on-1 messaging with auto-scroll
+- ✅ **Text Messages** - Send and receive text messages instantly
+- ✅ **Image Sharing** - Upload and share images in conversations
+- ✅ **Read Receipts** - Track which messages have been read
+- ✅ **Unread Counts** - Badge indicators for unread messages per conversation
+- ✅ **Mute Conversations** - Silence notifications from specific conversations
+- ✅ **Message Timestamps** - Smart timestamp formatting (time, yesterday, day of week, date)
+- ✅ **Real-time Updates** - Live message delivery and conversation updates
+- ✅ **Connection Verification** - Only connected parents can message each other
+
+### Safety & Moderation
+- ✅ **Report User** - Report inappropriate behavior with detailed reasons
+- ✅ **Report Reasons** - Spam, harassment, inappropriate content, fake profile, safety concern, other
+- ✅ **Block User** - Prevent unwanted users from messaging you
+- ✅ **Bidirectional Blocking** - Blocks work in both directions
+- ✅ **Content Filtering** - Automatic profanity detection and filtering
+- ✅ **Spam Detection** - Identify and prevent spam messages
+- ✅ **Report Management** - Admin dashboard for reviewing reports (pending/reviewed/resolved)
+- ✅ **Blocked Users List** - View and manage blocked users
+- ✅ **Message Validation** - Content length and format validation
+
+### Privacy Controls
+- ✅ **Message Deletion** - Soft delete messages (marked as deleted, not removed)
+- ✅ **Conversation Muting** - Mute notifications without blocking
+- ✅ **Participant Verification** - Security rules ensure only participants can access messages
+- ✅ **Connection-based Messaging** - Requires accepted connection to message
+
+### Security & Infrastructure
+- ✅ **Firestore Security Rules** - Comprehensive rules for conversations, messages, reports, blocks
+- ✅ **Participant-based Access** - Only conversation participants can read/write messages
+- ✅ **Image Upload Security** - Validated image uploads to Firebase Storage
+- ✅ **Real-time Subscriptions** - Secure real-time listeners with proper auth checks
+- ✅ **Age & Email Verification** - Messaging requires verified email and 18+ age
+
+### Testing & Data
+- ✅ **E2E Test Suite** - 11 comprehensive Playwright tests
+  - Navigate to messages page
+  - Empty state handling
+  - Start conversation
+  - Send/receive text messages
+  - Real-time message display
+  - Connection verification (non-connected cannot message)
+  - Report user functionality
+  - Block user functionality
+  - Blocked users cannot message
+  - Mute conversation
+  - Unread count display
+- ✅ **Seed Data Script** - Sprint 4 test data
+  - 3 sample conversations
+  - 10 messages across conversations
+  - 2 sample reports
+  - 1 blocked user relationship
+
+### Running Sprint 4
+
+```bash
+# Start Firebase emulators
+npm run emulators:start
+
+# In another terminal, seed Sprint 4 data
+npm run seed:sprint4
+
+# Start the development server
+npm run dev:local
+
+# Run Sprint 4 E2E tests
+npm run test:e2e:local tests/e2e/sprint4
+```
+
+### Sprint 4 Features in Action
+
+**Messaging Flow:**
+1. Navigate to `/messages` to view conversations
+2. Click a conversation to open the message thread
+3. Send text messages or upload images
+4. Messages appear in real-time for both users
+5. Unread counts update automatically
+6. Timestamps show relative time (5 min ago, Yesterday, etc.)
+
+**Safety Features:**
+1. Click the menu (⋮) in a conversation
+2. Options: Mute conversation, Report user, Block user
+3. Report modal with reason selection and description
+4. Block confirmation prevents all future messaging
+5. Blocked users see error when attempting to message
+
+**Privacy Controls:**
+1. Mute conversations to stop notifications
+2. Delete messages (soft delete - shows "Message deleted")
+3. Only connected users can start conversations
+4. Blocked users cannot message in either direction
+
 ## 🔧 Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -318,10 +416,9 @@ npm run test:e2e:debug
 npm run test:e2e:report
 ```
 
-### Sprint 1 Test Coverage
+### Test Coverage by Sprint
 
-Sprint 1 includes comprehensive E2E tests:
-
+**Sprint 1 Tests** (`tests/e2e/sprint1/`)
 - **Signup Flow** (`signup.spec.ts`)
   - Form validation
   - Email format validation
@@ -350,6 +447,20 @@ Sprint 1 includes comprehensive E2E tests:
   - Unverified users redirect to verification
   - Auth persistence across navigation
 
+**Sprint 4 Tests** (`tests/e2e/sprint4/`)
+- **Messaging** (`messaging.spec.ts`)
+  - Navigate to messages page
+  - Empty state display
+  - Start conversation between connected users
+  - Send and receive text messages
+  - Real-time message display
+  - Non-connected users cannot message
+  - Report user functionality
+  - Block user functionality
+  - Blocked users cannot message each other
+  - Mute conversation
+  - Unread message count display
+
 ### Writing Tests
 
 Tests are located in the `tests/` directory:
@@ -377,6 +488,12 @@ test('user can create a post', async ({ page }) => {
 ```bash
 # Seed Sprint 1 test users (10 users with different scenarios)
 npm run seed:sprint1
+
+# Seed Sprint 2 test data (profiles for existing users)
+npm run seed:sprint2
+
+# Seed Sprint 4 test data (conversations, messages, reports, blocks)
+npm run seed:sprint4
 
 # Seed users only (general seeding - future sprints)
 npm run seed:users
