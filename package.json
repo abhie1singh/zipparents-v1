@@ -22,6 +22,10 @@
     "seed:sprint1:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/sprint1-users.ts",
     "seed:sprint2": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/sprint2-profiles.ts",
     "seed:sprint2:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/sprint2-profiles.ts",
+    "seed:sprint4": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/sprint4-messages.ts",
+    "seed:sprint4:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/sprint4-messages.ts",
+    "seed:sprint5": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/sprint5-events.ts",
+    "seed:sprint5:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/sprint5-events.ts",
     "seed:users": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-users.ts",
     "seed:users:dev": "FIREBASE_ENV=dev ./scripts/run-script.sh scripts/seed/seed-users.ts",
     "seed:data": "FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/seed-test-data.ts",
@@ -51,10 +55,12 @@
   "homepage": "https://github.com/abhie1singh/zipparents-v1#readme",
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "date-fns": "^4.1.0",
     "firebase": "^12.3.0",
     "firebase-admin": "^13.5.0",
     "next": "^15.5.4",
     "react": "^19.1.1",
+    "react-calendar": "^6.0.0",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {

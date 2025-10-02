@@ -263,6 +263,64 @@ service cloud.firestore {
       allow delete: if isOwner(profileId);
     }
 
+    // Events collection (Sprint 5)
+    match /events/{eventId} {
+      // Anyone authenticated and age verified can read events
+      allow read: if isAuthenticated() && isAgeVerified();
+
+      // Email verified and age verified users can create events
+      allow create: if isEmailVerified() && isAgeVerified() &&
+        request.resource.data.organizerId == request.auth.uid &&
+        request.resource.data.title is string && request.resource.data.title.size() >= 3 &&
+        request.resource.data.description is string && request.resource.data.description.size() >= 10 &&
+        request.resource.data.location is string && request.resource.data.location.size() >= 3 &&
+        request.resource.data.zipCode is string && request.resource.data.zipCode.matches('^[0-9]{5}$') &&
+        request.resource.data.ageRanges is list && request.resource.data.ageRanges.size() > 0 &&
+        request.resource.data.isPublicPlace is bool &&
+        request.resource.data.attendeeCount == 0 &&
+        request.resource.data.attendeeIds is list && request.resource.data.attendeeIds.size() == 0 &&
+        request.resource.data.keys().hasAll(['organizerId', 'title', 'description', 'location', 'zipCode', 'startTime', 'endTime', 'ageRanges', 'attendeeCount', 'attendeeIds', 'status', 'isPublicPlace', 'createdAt', 'updatedAt']);
+
+      // Event organizer can update their own event (not cancelled events)
+      allow update: if isEmailVerified() && isAgeVerified() &&
+        resource.data.organizerId == request.auth.uid &&
+        request.resource.data.organizerId == resource.data.organizerId &&
+        (resource.data.status != 'cancelled' || request.resource.data.status == 'cancelled');
+
+      // Users can update attendee list (for RSVP)
+      allow update: if isEmailVerified() && isAgeVerified() &&
+        request.resource.data.organizerId == resource.data.organizerId &&
+        request.resource.data.title == resource.data.title &&
+        request.resource.data.description == resource.data.description &&
+        request.resource.data.location == resource.data.location &&
+        request.resource.data.status == resource.data.status;
+
+      // Event organizer or admin can delete
+      allow delete: if isAuthenticated() && isAgeVerified() &&
+        (resource.data.organizerId == request.auth.uid || isAdmin());
+    }
+
+    // Event comments collection (Sprint 5)
+    match /eventComments/{commentId} {
+      // Anyone authenticated and age verified can read comments
+      allow read: if isAuthenticated() && isAgeVerified();
+
+      // Email verified users can create comments
+      allow create: if isEmailVerified() && isAgeVerified() &&
+        request.resource.data.authorId == request.auth.uid &&
+        request.resource.data.content is string && request.resource.data.content.size() > 0 && request.resource.data.content.size() <= 1000 &&
+        request.resource.data.keys().hasAll(['eventId', 'authorId', 'content', 'createdAt', 'updatedAt']);
+
+      // Comment author can update their own comment
+      allow update: if isEmailVerified() && isAgeVerified() &&
+        resource.data.authorId == request.auth.uid &&
+        request.resource.data.authorId == resource.data.authorId;
+
+      // Comment author or admin can delete
+      allow delete: if isAuthenticated() && isAgeVerified() &&
+        (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+
     // Default deny all other documents
     match /{document=**} {
       allow read, write: if false;

@@ -212,6 +212,141 @@ npm run test:e2e:local tests/e2e/sprint4
 3. Only connected users can start conversations
 4. Blocked users cannot message in either direction
 
+## ✅ Sprint 5: Completed Features
+
+Sprint 5 introduces a community calendar system with event creation, RSVP functionality, and comprehensive safety features for in-person meetups.
+
+### Calendar System
+- ✅ **Interactive Calendar** - Month, week, and day views using react-calendar
+- ✅ **Event Markers** - Visual indicators on dates with scheduled events
+- ✅ **Multiple View Modes** - Toggle between calendar view and list view
+- ✅ **Date Navigation** - Click dates to see events for that day
+- ✅ **Real-time Updates** - Live event updates via Firebase subscriptions
+- ✅ **Event Filtering** - Filter by My Events, My RSVPs, Nearby (zip code), Age Range
+- ✅ **Create Event Button** - Quick access to event creation
+- ✅ **Event Cards** - Display title, date, time, location, organizer, attendee count
+
+### Event Management
+- ✅ **Event Creation** - Comprehensive form with validation
+- ✅ **Event Details Page** - Full event information display
+- ✅ **Event Editing** - Organizers can edit upcoming events
+- ✅ **Event Cancellation** - Organizers can cancel events with reason
+- ✅ **RSVP System** - Users can RSVP to events
+- ✅ **Cancel RSVP** - Users can cancel their attendance
+- ✅ **Attendee List** - View all confirmed attendees
+- ✅ **Capacity Management** - Optional max attendees with full event indicators
+- ✅ **Age Range Selection** - Multiple age range options (0-2, 3-5, 6-8, 9-12, 13+, all-ages)
+- ✅ **Event Status** - Upcoming, Ongoing, Completed, Cancelled states
+- ✅ **Image Upload** - Optional event images
+- ✅ **Location Details** - Address with Google Maps integration
+- ✅ **Event Comments** - Discussion on event pages
+
+### Safety Features
+- ✅ **Safety Tips Component** - Displayed on event creation and details
+- ✅ **Public Place Requirement** - Checkbox required for event creation
+- ✅ **Safety Notes** - Optional field for organizer safety instructions
+- ✅ **Liability Disclaimer** - Required checkbox before creating events
+- ✅ **Safety Recommendations** - Meet in public places, daylight hours, inform others
+- ✅ **Emergency Contacts Reminder** - What to bring and safety checklist
+- ✅ **Report Event** - Users can report inappropriate events
+- ✅ **Content Validation** - Title, description, location validation
+
+### Event Features
+- ✅ **Date & Time Pickers** - User-friendly date and time selection
+- ✅ **Past Event Prevention** - Cannot create events in the past
+- ✅ **Time Validation** - End time must be after start time
+- ✅ **Max Attendees** - Optional capacity limits
+- ✅ **Full Event Indicators** - Clear display when event is at capacity
+- ✅ **Zip Code Integration** - Events tied to organizer's location
+- ✅ **Nearby Events Filter** - Find events in your area
+- ✅ **My Events** - View events you've created
+- ✅ **My RSVPs** - View events you're attending
+
+### Security & Infrastructure
+- ✅ **Firestore Security Rules** - Events and eventComments collections
+- ✅ **Organizer Verification** - Only event creator can edit/cancel
+- ✅ **Email & Age Verification** - Required for event creation
+- ✅ **Field Validation** - Title (min 3), description (min 10), location (min 3), zip code (5 digits)
+- ✅ **RSVP Permissions** - Email verified users only
+- ✅ **Comment Permissions** - Authenticated users can comment
+- ✅ **Image Upload Security** - Validated uploads to Firebase Storage
+
+### Testing & Data
+- ✅ **E2E Test Suite** - 12 comprehensive Playwright tests
+  - Navigate to calendar page
+  - Navigate to create event page
+  - Create event
+  - Display event on calendar
+  - RSVP to event
+  - Cancel RSVP
+  - Show attendee count correctly
+  - Event creator can edit
+  - Event creator can cancel
+  - Prevent RSVP to cancelled events
+  - Filter events by age range
+  - Add comment to event
+- ✅ **Seed Data Script** - Sprint 5 test data
+  - 14 diverse events (past, ongoing, upcoming, cancelled)
+  - Events across different zip codes
+  - Various age ranges and capacities
+  - Events at max capacity
+  - Events with no RSVPs
+  - 10 event comments
+
+### Running Sprint 5
+
+```bash
+# Start Firebase emulators
+npm run emulators:start
+
+# In another terminal, seed Sprint 5 data
+npm run seed:sprint5
+
+# Start the development server
+npm run dev:local
+
+# Run Sprint 5 E2E tests
+npm run test:e2e:local tests/e2e/sprint5
+```
+
+### Sprint 5 Features in Action
+
+**Creating an Event:**
+1. Navigate to `/calendar` and click "Create Event"
+2. Fill in event details: title, description, location, zip code
+3. Select start and end date/time
+4. Choose age ranges for attendees
+5. Add optional max attendees and safety notes
+6. Check required public place checkbox
+7. Read safety tips and accept liability disclaimer
+8. Upload optional event image
+9. Submit to create event
+
+**RSVP Flow:**
+1. Browse calendar or list view for events
+2. Click event card to view details
+3. Review event information, safety notes, attendee count
+4. Click "RSVP" button
+5. Confirmation toast and attendee count updates
+6. "Cancel RSVP" button appears
+7. Event appears in "My RSVPs" filter
+
+**Event Management:**
+1. View your created events with "My Events" filter
+2. Click event to view details
+3. Edit button available for upcoming events
+4. Update event details and save
+5. Cancel event with reason if needed
+6. All attendees see cancellation notice
+
+**Calendar Features:**
+1. Toggle between Month, Week, Day views
+2. Events marked with blue dots on calendar
+3. Click date to see all events that day
+4. Toggle to List view for detailed event cards
+5. Apply filters: My Events, My RSVPs, Nearby, Age Ranges
+6. Real-time updates when events are created/modified
+
 ## 🔧 Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -461,6 +596,21 @@ npm run test:e2e:report
   - Mute conversation
   - Unread message count display
 
+**Sprint 5 Tests** (`tests/e2e/sprint5/`)
+- **Events & Calendar** (`events.spec.ts`)
+  - Navigate to calendar page
+  - Navigate to create event page
+  - Create event with full form
+  - Display event on calendar with marker
+  - RSVP to event
+  - Cancel RSVP
+  - Show attendee count correctly
+  - Event creator can edit event
+  - Event creator can cancel event
+  - Prevent RSVP to cancelled event
+  - Filter events by age range
+  - Add comment to event
+
 ### Writing Tests
 
 Tests are located in the `tests/` directory:
@@ -494,6 +644,9 @@ npm run seed:sprint2
 
 # Seed Sprint 4 test data (conversations, messages, reports, blocks)
 npm run seed:sprint4
+
+# Seed Sprint 5 test data (events, event comments)
+npm run seed:sprint5
 
 # Seed users only (general seeding - future sprints)
 npm run seed:users
