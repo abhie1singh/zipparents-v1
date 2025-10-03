@@ -1,1352 +1,2416 @@
-# ZipParents - Connect, Share, Support
+# ZipParents.com - Connect, Share, Support
 
-A Next.js-based social platform for parents to connect, share experiences, and find local support within their zip code communities.
+A Next.js-based social platform for parents to connect, share experiences, organize local events, and find support within their zip code communities.
 
 ## 📋 Table of Contents
 
-- [Sprint 1: Completed Features](#sprint-1-completed-features)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Firebase Setup](#firebase-setup)
-- [Development](#development)
-- [Testing](#testing)
-- [Seeding Data](#seeding-data)
-- [Deployment](#deployment)
-- [Project Structure](#project-structure)
-- [Environment Configuration](#environment-configuration)
-- [Troubleshooting](#troubleshooting)
-
-## ✅ Sprint 1: Completed Features
-
-Sprint 1 establishes the foundation of ZipParents with complete authentication, legal compliance, and UI infrastructure.
-
-### Authentication & User Management
-- ✅ **Sign Up Flow** - Complete registration with email/password
-- ✅ **Age Verification** - COPPA compliant 18+ requirement with date of birth validation
-- ✅ **Email Verification** - Firebase email verification with resend capability
-- ✅ **Login/Logout** - Secure authentication flow
-- ✅ **Password Reset** - Email-based password recovery
-- ✅ **Protected Routes** - Route guards for authenticated-only pages
-- ✅ **Auth Context** - Global authentication state management
-
-### UI Components & Design System
-- ✅ **Button Component** - Multiple variants (primary, secondary, outline, ghost, danger)
-- ✅ **Input Component** - Form inputs with validation and error states
-- ✅ **Loading Spinner** - Multiple sizes and colors
-- ✅ **Error Boundary** - Graceful error handling
-- ✅ **Toast System** - Success, error, warning, info notifications
-- ✅ **Layout Components** - Header, Footer, Navigation
-- ✅ **Cookie Consent** - GDPR-compliant cookie banner
-
-### Legal Pages (COPPA Compliant)
-- ✅ **Terms of Service** - Comprehensive terms with 18+ requirement
-- ✅ **Privacy Policy** - COPPA compliant privacy policy
-- ✅ **Community Guidelines** - Clear rules and expectations
-- ✅ **Safety Tips** - Detailed safety information for parents
-- ✅ **About Page** - Mission, values, and how it works
-- ✅ **Contact Page** - Contact form with multiple subjects
-
-### Pages
-- ✅ **Homepage** - Marketing page with features, how it works, CTA
-- ✅ **Sign Up Page** - Complete registration flow
-- ✅ **Login Page** - Authentication page
-- ✅ **Reset Password Page** - Password recovery flow
-- ✅ **Email Verification Page** - Verification reminder with resend
-- ✅ **Feed Page** - Protected placeholder for Sprint 2
-
-### Security & Infrastructure
-- ✅ **Firestore Security Rules** - Comprehensive auth-based rules
-- ✅ **Age Verification Logic** - 18+ validation with helper functions
-- ✅ **Email Verification Banner** - Prominent reminder for unverified users
-- ✅ **Form Validation** - Client-side validation for all forms
-- ✅ **Error Handling** - User-friendly error messages
-
-### Testing & Data
-- ✅ **E2E Test Suite** - Comprehensive Playwright tests
-  - Signup flow tests
-  - Login/logout tests
-  - Age verification tests (18+ enforcement)
-  - Protected routes tests
-- ✅ **Test Helpers** - Reusable test utilities
-- ✅ **Seed Data Script** - 10 test users with different scenarios
-- ✅ **Test User Accounts** - Verified and unverified test accounts
-
-### Technology Stack
-- **Frontend**: Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Backend**: Firebase (Auth, Firestore)
-- **Testing**: Playwright
-- **Development**: Firebase Emulators
-
-### Test Credentials (Sprint 1 Seed Data)
-
-After running `npm run seed:sprint1`, use these accounts:
-
-| Email | Password | Status | Scenario |
-|-------|----------|--------|----------|
-| verified.parent@test.com | Test123! | Verified | Active parent |
-| unverified.parent@test.com | Test123! | Unverified | Needs verification |
-| new.parent@test.com | Test123! | Verified | Recently joined |
-| local.parent@test.com | Test123! | Verified | Local community |
-| admin.test@test.com | Test123! | Verified | Admin account |
-
-All users are 18+ with age verification and in different zip codes (10001-10003).
-
-### Running Sprint 1
-
-```bash
-# Start Firebase emulators
-npm run emulators:start
-
-# In another terminal, seed Sprint 1 data
-npm run seed:sprint1
-
-# Start the development server
-npm run dev:local
-
-# Run Sprint 1 E2E tests
-npm run test:e2e:local tests/e2e/sprint1
-```
-
-### What's Coming in Sprint 2
-- Feed and Posts functionality
-- Comments and Reactions
-- User profiles
-- Post creation and editing
-- Local feed filtering by zip code
-
-## ✅ Sprint 4: Completed Features
-
-Sprint 4 introduces real-time messaging and comprehensive safety features to enable secure parent-to-parent communication.
-
-### Messaging System
-- ✅ **Conversations List** - View all conversations with unread counts and timestamps
-- ✅ **Message Thread** - Real-time 1-on-1 messaging with auto-scroll
-- ✅ **Text Messages** - Send and receive text messages instantly
-- ✅ **Image Sharing** - Upload and share images in conversations
-- ✅ **Read Receipts** - Track which messages have been read
-- ✅ **Unread Counts** - Badge indicators for unread messages per conversation
-- ✅ **Mute Conversations** - Silence notifications from specific conversations
-- ✅ **Message Timestamps** - Smart timestamp formatting (time, yesterday, day of week, date)
-- ✅ **Real-time Updates** - Live message delivery and conversation updates
-- ✅ **Connection Verification** - Only connected parents can message each other
-
-### Safety & Moderation
-- ✅ **Report User** - Report inappropriate behavior with detailed reasons
-- ✅ **Report Reasons** - Spam, harassment, inappropriate content, fake profile, safety concern, other
-- ✅ **Block User** - Prevent unwanted users from messaging you
-- ✅ **Bidirectional Blocking** - Blocks work in both directions
-- ✅ **Content Filtering** - Automatic profanity detection and filtering
-- ✅ **Spam Detection** - Identify and prevent spam messages
-- ✅ **Report Management** - Admin dashboard for reviewing reports (pending/reviewed/resolved)
-- ✅ **Blocked Users List** - View and manage blocked users
-- ✅ **Message Validation** - Content length and format validation
-
-### Privacy Controls
-- ✅ **Message Deletion** - Soft delete messages (marked as deleted, not removed)
-- ✅ **Conversation Muting** - Mute notifications without blocking
-- ✅ **Participant Verification** - Security rules ensure only participants can access messages
-- ✅ **Connection-based Messaging** - Requires accepted connection to message
-
-### Security & Infrastructure
-- ✅ **Firestore Security Rules** - Comprehensive rules for conversations, messages, reports, blocks
-- ✅ **Participant-based Access** - Only conversation participants can read/write messages
-- ✅ **Image Upload Security** - Validated image uploads to Firebase Storage
-- ✅ **Real-time Subscriptions** - Secure real-time listeners with proper auth checks
-- ✅ **Age & Email Verification** - Messaging requires verified email and 18+ age
-
-### Testing & Data
-- ✅ **E2E Test Suite** - 11 comprehensive Playwright tests
-  - Navigate to messages page
-  - Empty state handling
-  - Start conversation
-  - Send/receive text messages
-  - Real-time message display
-  - Connection verification (non-connected cannot message)
-  - Report user functionality
-  - Block user functionality
-  - Blocked users cannot message
-  - Mute conversation
-  - Unread count display
-- ✅ **Seed Data Script** - Sprint 4 test data
-  - 3 sample conversations
-  - 10 messages across conversations
-  - 2 sample reports
-  - 1 blocked user relationship
-
-### Running Sprint 4
-
-```bash
-# Start Firebase emulators
-npm run emulators:start
-
-# In another terminal, seed Sprint 4 data
-npm run seed:sprint4
-
-# Start the development server
-npm run dev:local
-
-# Run Sprint 4 E2E tests
-npm run test:e2e:local tests/e2e/sprint4
-```
-
-### Sprint 4 Features in Action
-
-**Messaging Flow:**
-1. Navigate to `/messages` to view conversations
-2. Click a conversation to open the message thread
-3. Send text messages or upload images
-4. Messages appear in real-time for both users
-5. Unread counts update automatically
-6. Timestamps show relative time (5 min ago, Yesterday, etc.)
-
-**Safety Features:**
-1. Click the menu (⋮) in a conversation
-2. Options: Mute conversation, Report user, Block user
-3. Report modal with reason selection and description
-4. Block confirmation prevents all future messaging
-5. Blocked users see error when attempting to message
-
-**Privacy Controls:**
-1. Mute conversations to stop notifications
-2. Delete messages (soft delete - shows "Message deleted")
-3. Only connected users can start conversations
-4. Blocked users cannot message in either direction
-
-## ✅ Sprint 5: Completed Features
-
-Sprint 5 introduces a community calendar system with event creation, RSVP functionality, and comprehensive safety features for in-person meetups.
-
-### Calendar System
-- ✅ **Interactive Calendar** - Month, week, and day views using react-calendar
-- ✅ **Event Markers** - Visual indicators on dates with scheduled events
-- ✅ **Multiple View Modes** - Toggle between calendar view and list view
-- ✅ **Date Navigation** - Click dates to see events for that day
-- ✅ **Real-time Updates** - Live event updates via Firebase subscriptions
-- ✅ **Event Filtering** - Filter by My Events, My RSVPs, Nearby (zip code), Age Range
-- ✅ **Create Event Button** - Quick access to event creation
-- ✅ **Event Cards** - Display title, date, time, location, organizer, attendee count
-
-### Event Management
-- ✅ **Event Creation** - Comprehensive form with validation
-- ✅ **Event Details Page** - Full event information display
-- ✅ **Event Editing** - Organizers can edit upcoming events
-- ✅ **Event Cancellation** - Organizers can cancel events with reason
-- ✅ **RSVP System** - Users can RSVP to events
-- ✅ **Cancel RSVP** - Users can cancel their attendance
-- ✅ **Attendee List** - View all confirmed attendees
-- ✅ **Capacity Management** - Optional max attendees with full event indicators
-- ✅ **Age Range Selection** - Multiple age range options (0-2, 3-5, 6-8, 9-12, 13+, all-ages)
-- ✅ **Event Status** - Upcoming, Ongoing, Completed, Cancelled states
-- ✅ **Image Upload** - Optional event images
-- ✅ **Location Details** - Address with Google Maps integration
-- ✅ **Event Comments** - Discussion on event pages
-
-### Safety Features
-- ✅ **Safety Tips Component** - Displayed on event creation and details
-- ✅ **Public Place Requirement** - Checkbox required for event creation
-- ✅ **Safety Notes** - Optional field for organizer safety instructions
-- ✅ **Liability Disclaimer** - Required checkbox before creating events
-- ✅ **Safety Recommendations** - Meet in public places, daylight hours, inform others
-- ✅ **Emergency Contacts Reminder** - What to bring and safety checklist
-- ✅ **Report Event** - Users can report inappropriate events
-- ✅ **Content Validation** - Title, description, location validation
-
-### Event Features
-- ✅ **Date & Time Pickers** - User-friendly date and time selection
-- ✅ **Past Event Prevention** - Cannot create events in the past
-- ✅ **Time Validation** - End time must be after start time
-- ✅ **Max Attendees** - Optional capacity limits
-- ✅ **Full Event Indicators** - Clear display when event is at capacity
-- ✅ **Zip Code Integration** - Events tied to organizer's location
-- ✅ **Nearby Events Filter** - Find events in your area
-- ✅ **My Events** - View events you've created
-- ✅ **My RSVPs** - View events you're attending
-
-### Security & Infrastructure
-- ✅ **Firestore Security Rules** - Events and eventComments collections
-- ✅ **Organizer Verification** - Only event creator can edit/cancel
-- ✅ **Email & Age Verification** - Required for event creation
-- ✅ **Field Validation** - Title (min 3), description (min 10), location (min 3), zip code (5 digits)
-- ✅ **RSVP Permissions** - Email verified users only
-- ✅ **Comment Permissions** - Authenticated users can comment
-- ✅ **Image Upload Security** - Validated uploads to Firebase Storage
-
-### Testing & Data
-- ✅ **E2E Test Suite** - 12 comprehensive Playwright tests
-  - Navigate to calendar page
-  - Navigate to create event page
-  - Create event
-  - Display event on calendar
-  - RSVP to event
-  - Cancel RSVP
-  - Show attendee count correctly
-  - Event creator can edit
-  - Event creator can cancel
-  - Prevent RSVP to cancelled events
-  - Filter events by age range
-  - Add comment to event
-- ✅ **Seed Data Script** - Sprint 5 test data
-  - 14 diverse events (past, ongoing, upcoming, cancelled)
-  - Events across different zip codes
-  - Various age ranges and capacities
-  - Events at max capacity
-  - Events with no RSVPs
-  - 10 event comments
-
-### Running Sprint 5
-
-```bash
-# Start Firebase emulators
-npm run emulators:start
-
-# In another terminal, seed Sprint 5 data
-npm run seed:sprint5
-
-# Start the development server
-npm run dev:local
-
-# Run Sprint 5 E2E tests
-npm run test:e2e:local tests/e2e/sprint5
-```
-
-### Sprint 5 Features in Action
-
-**Creating an Event:**
-1. Navigate to `/calendar` and click "Create Event"
-2. Fill in event details: title, description, location, zip code
-3. Select start and end date/time
-4. Choose age ranges for attendees
-5. Add optional max attendees and safety notes
-6. Check required public place checkbox
-7. Read safety tips and accept liability disclaimer
-8. Upload optional event image
-9. Submit to create event
-
-**RSVP Flow:**
-1. Browse calendar or list view for events
-2. Click event card to view details
-3. Review event information, safety notes, attendee count
-4. Click "RSVP" button
-5. Confirmation toast and attendee count updates
-6. "Cancel RSVP" button appears
-7. Event appears in "My RSVPs" filter
-
-**Event Management:**
-1. View your created events with "My Events" filter
-2. Click event to view details
-3. Edit button available for upcoming events
-4. Update event details and save
-5. Cancel event with reason if needed
-6. All attendees see cancellation notice
-
-**Calendar Features:**
-1. Toggle between Month, Week, Day views
-2. Events marked with blue dots on calendar
-3. Click date to see all events that day
-4. Toggle to List view for detailed event cards
-5. Apply filters: My Events, My RSVPs, Nearby, Age Ranges
-6. Real-time updates when events are created/modified
-
-## ✅ Sprint 6: Completed Features
-
-Sprint 6 focuses on SEO optimization, public marketing pages, and analytics to improve discoverability and track user engagement.
-
-### SEO & Metadata System
-- ✅ **Meta Tags Utility** - Comprehensive metadata generation with Next.js Metadata API
-- ✅ **Open Graph Tags** - Facebook, LinkedIn sharing optimization for all pages
-- ✅ **Twitter Cards** - Enhanced Twitter sharing with summary_large_image cards
-- ✅ **Canonical URLs** - Proper canonical URLs to prevent duplicate content
-- ✅ **Robots Meta Tags** - Granular control over search engine indexing
-- ✅ **Keywords** - Dynamic keyword generation for each page
-- ✅ **Dynamic Metadata** - Content-based meta tag generation
-
-### Structured Data (JSON-LD)
-- ✅ **Organization Schema** - Company information with contact details
-- ✅ **WebSite Schema** - Site-wide schema with search action
-- ✅ **FAQPage Schema** - Structured FAQ data for rich snippets
-- ✅ **Article Schema** - Blog post structured data with author and publisher
-- ✅ **Breadcrumb Schema** - Navigation breadcrumbs for search results
-- ✅ **LocalBusiness Schema** - Location-based structured data for city pages
-- ✅ **StructuredData Component** - Reusable component for rendering JSON-LD
-
-### SEO Files
-- ✅ **Sitemap.xml** - Dynamic sitemap with 14 routes, change frequency, priorities
-- ✅ **Robots.txt** - Search engine crawl rules with sitemap reference
-- ✅ **Next.js MetadataRoute** - TypeScript-based sitemap and robots generation
-
-### Public Content Pages
-- ✅ **How It Works** (`/how-it-works`) - 4-step process explanation with icons
-- ✅ **Safety & Trust** (`/safety-trust`) - 6 safety features showcase
-- ✅ **For Parents** (`/for-parents`) - Benefits, testimonials structure, features
-- ✅ **FAQ Page** (`/faq`) - Interactive accordion with 15 questions in 5 categories
-- ✅ **Blog Page** (`/blog`) - Blog listing with newsletter signup and empty state
-- ✅ **All pages have proper SEO** - Meta tags, descriptions, Open Graph, Twitter Cards
-
-### Homepage Enhancements
-- ✅ **Enhanced SEO Metadata** - Comprehensive keywords and descriptions
-- ✅ **Structured Data** - Organization, WebSite, and FAQ schemas
-- ✅ **Interactive FAQ Section** - Accordion with 5 common questions
-- ✅ **Client/Server Split** - HomeClient component for interactivity
-- ✅ **Hero Section** - Compelling value proposition with CTA
-- ✅ **Features Showcase** - Key platform features
-- ✅ **How It Works** - Quick overview of process
-- ✅ **Safety Section** - Trust and safety features
-
-### Analytics Integration
-- ✅ **Google Analytics 4** - GA4 integration with gtag.js
-- ✅ **Page View Tracking** - Automatic page view tracking
-- ✅ **Event Tracking** - Custom event tracking utilities
-- ✅ **Conversion Tracking** - Sign up, login, post creation tracking
-- ✅ **Event RSVP Tracking** - Track event RSVPs with event details
-- ✅ **Custom Events** - Flexible event tracking for key actions
-- ✅ **TypeScript Support** - Fully typed analytics functions
-
-### Performance Optimizations
-- ✅ **next/image Usage** - Optimized images across all pages
-- ✅ **Lazy Loading** - Below-fold content optimization
-- ✅ **Font Optimization** - Next.js font optimization
-- ✅ **Code Splitting** - Component-level code splitting
-- ✅ **Server Components** - Default server components for SEO
-
-### Testing & Data
-- ✅ **E2E Test Suite** - 7 comprehensive Playwright tests
-  - Homepage meta tags validation
-  - Sitemap.xml accessibility and structure
-  - Robots.txt validation
-  - All public pages accessibility with meta tags
-  - FAQ accordion functionality with ARIA attributes
-  - Structured data (JSON-LD) validation
-  - Canonical URL verification
-- ✅ **SEO Testing Utilities** - Reusable helpers
-  - `validateMetaTags()` - Check title, description, OG tags
-  - `validateStructuredData()` - Parse and validate JSON-LD schemas
-  - `checkPerformance()` - Measure load time, DOM content loaded, first paint
-
-### Security & Best Practices
-- ✅ **ARIA Attributes** - Proper accessibility for accordions
-- ✅ **Semantic HTML** - Proper heading hierarchy and structure
-- ✅ **Mobile Responsive** - All pages optimized for mobile
-- ✅ **Loading States** - Proper loading indicators
-- ✅ **Error Handling** - Graceful error states
-- ✅ **Form Validation** - Newsletter signup validation
-
-### Running Sprint 6
-
-```bash
-# Start Firebase emulators
-npm run emulators:start
-
-# Start the development server
-npm run dev:local
-
-# Visit pages to test SEO
-open http://localhost:3000/
-open http://localhost:3000/how-it-works
-open http://localhost:3000/safety-trust
-open http://localhost:3000/for-parents
-open http://localhost:3000/faq
-open http://localhost:3000/blog
-
-# Check SEO files
-open http://localhost:3000/sitemap.xml
-open http://localhost:3000/robots.txt
-
-# Run Sprint 6 E2E tests
-npm run test:e2e:local tests/e2e/sprint6
-```
-
-### Sprint 6 Features in Action
-
-**SEO & Meta Tags:**
-1. All pages include comprehensive meta tags
-2. Open Graph tags for social media sharing
-3. Twitter Cards for enhanced Twitter previews
-4. JSON-LD structured data for rich search results
-5. Canonical URLs prevent duplicate content issues
-6. Robots meta tags control search engine indexing
-
-**Public Pages:**
-1. Navigate to `/how-it-works` to see the 4-step process
-2. Visit `/safety-trust` for comprehensive safety information
-3. Check `/for-parents` for benefits and testimonials
-4. Browse `/faq` for frequently asked questions with accordion
-5. Explore `/blog` for blog listings and newsletter signup
-
-**Analytics Tracking:**
-1. Page views automatically tracked on navigation
-2. Sign up and login events tracked
-3. Post creation events tracked
-4. Event RSVP events tracked with event details
-5. Custom events can be tracked for any action
-
-**Testing SEO:**
-1. Use `validateMetaTags()` helper to check meta tags
-2. Use `validateStructuredData()` to verify JSON-LD schemas
-3. Use `checkPerformance()` to measure page performance
-4. Run E2E tests to validate all SEO implementations
-
-### Environment Variables
-
-Add these to your `.env.local` (or `.env.dev`, `.env.prod`):
-
-```env
-# Base URL for canonical URLs and Open Graph
-NEXT_PUBLIC_BASE_URL=https://zipparents.com
-
-# Google Analytics 4 Measurement ID
-NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
-```
-
-### SEO Best Practices Implemented
-
-1. **Meta Tags**: Every page has unique title, description, keywords
-2. **Open Graph**: All pages optimized for social sharing
-3. **Structured Data**: JSON-LD schemas for rich search results
-4. **Sitemap**: Dynamic sitemap with all public routes
-5. **Robots.txt**: Proper crawl directives for search engines
-6. **Canonical URLs**: Prevent duplicate content issues
-7. **Image Optimization**: next/image for all images
-8. **Performance**: Fast page loads with code splitting and lazy loading
-9. **Accessibility**: ARIA attributes and semantic HTML
-10. **Mobile First**: Responsive design across all devices
-
-## ✅ Sprint 7: Completed Features
-
-Sprint 7 implements a comprehensive admin panel with user management, content moderation, and platform monitoring capabilities.
-
-### Admin Authentication & Access Control
-- ✅ **Admin Role System** - Role-based access (admin, moderator, user) in Firestore
-- ✅ **Admin Middleware** - Server-side route protection for admin pages
-- ✅ **Admin Layout** - Dedicated admin dashboard with navigation sidebar
-- ✅ **Permission System** - Granular permissions (view_users, moderate_content, ban_users, view_reports, manage_events)
-- ✅ **Access Verification** - Non-admin users redirected from admin routes
-- ✅ **Admin Badge** - Visual indicator of admin status
-
-### User Management
-- ✅ **User List Page** (`/admin/users`) - Paginated table of all users
-- ✅ **User Search** - Search by email or display name
-- ✅ **User Filters** - Filter by status, role, verification status
-- ✅ **User Detail Page** (`/admin/users/[userId]`) - Complete user profile view
-- ✅ **Suspend User** - Temporarily suspend user access with reason
-- ✅ **Unsuspend User** - Restore suspended user access
-- ✅ **Ban User** - Permanently ban user with confirmation
-- ✅ **Unban User** - Remove ban from user account
-- ✅ **Verify User Manually** - Admin override for age verification
-- ✅ **User Activity Logs** - Track user actions and login history
-- ✅ **User Status Badges** - Visual indicators (active, suspended, banned)
-
-### Content Moderation
-- ✅ **Reports Queue** (`/admin/reports`) - Centralized report management
-- ✅ **Report Status Filters** - Filter by pending, reviewing, resolved, dismissed
-- ✅ **Report Types** - Message reports, event reports, profile reports, user reports
-- ✅ **Report Detail Page** (`/admin/reports/[reportId]`) - Full report information
-- ✅ **Dismiss Report** - Mark false reports as dismissed with reason
-- ✅ **Warn User** - Send warning to user about violation
-- ✅ **Remove Content** - Delete reported content (message, event, post)
-- ✅ **Ban User from Report** - Ban user directly from report review
-- ✅ **Report Metadata** - View reported content preview
-- ✅ **Moderation Actions** - Track all admin actions on reports
-
-### Event Moderation
-- ✅ **Events List** (`/admin/events`) - Overview of all platform events
-- ✅ **Event Status Display** - Show active/cancelled/removed events
-- ✅ **Event Creator Info** - View organizer details
-- ✅ **Event Moderation** - Cancel events through reports system
-- ✅ **Contact Organizer** - Admin can message event creators
-
-### Platform Monitoring Dashboard
-- ✅ **Admin Dashboard** (`/admin`) - Centralized metrics and insights
-- ✅ **Key Metrics Display**:
-  - Total Users count
-  - Active Users count
-  - Verified Users count
-  - Suspended Users count
-  - Banned Users count
-  - Total Posts count
-  - Total Events count
-  - Total Messages count
-  - Pending Reports count
-  - Resolved Reports count
-- ✅ **Recent Moderation Logs** - Last 10 admin actions
-- ✅ **Color-Coded Metric Cards** - Visual distinction for different metrics
-- ✅ **Real-time Data** - Live platform statistics
-- ✅ **Refresh Functionality** - Manual data refresh
-
-### Moderation Logs System
-- ✅ **Moderation Logs Page** (`/admin/logs`) - Complete audit trail
-- ✅ **Action Types Tracked**:
-  - Dismiss report
-  - Warn user
-  - Remove content
-  - Suspend user
-  - Ban user
-  - Verify user
-  - Unsuspend user
-  - Unban user
-  - Cancel event
-- ✅ **Action Filter** - Filter logs by action type
-- ✅ **Log Details** - Admin, target user, reason, timestamp, content/report IDs
-- ✅ **Immutable Logs** - Cannot be edited or deleted
-- ✅ **Action Badges** - Color-coded action indicators
-- ✅ **Admin Attribution** - Track who performed each action
-
-### Security & Infrastructure
-- ✅ **Firestore Security Rules** - Admin-only access to:
-  - moderationLogs collection
-  - activityLogs collection
-  - Admin updates to users collection
-  - Reports collection (admins can read all)
-- ✅ **Role Verification** - Server-side admin status checks
-- ✅ **Protected Admin Routes** - Middleware blocks non-admin access
-- ✅ **Action Validation** - Prevent duplicate/invalid moderation actions
-- ✅ **User Status Enforcement** - Suspended/banned users blocked from app
-
-### Testing & Data
-- ✅ **E2E Test Suite** - 5 comprehensive test files with 40+ tests
-  - **Admin Access Tests** (`admin-access.spec.ts`)
-    - Block non-admin from admin panel
-    - Allow admin access to admin panel
-    - Redirect unauthenticated users
-    - Show admin navigation links
-
-  - **User Management Tests** (`user-management.spec.ts`)
-    - Display user list page
-    - Search users by email and name
-    - View user details
-    - Suspend user
-    - Verify user manually
-    - Ban user
-    - Display activity logs
-    - Clear search results
-
-  - **Content Moderation Tests** (`content-moderation.spec.ts`)
-    - Display reports queue
-    - Filter reports by status
-    - View report details
-    - Dismiss report
-    - Remove reported content
-    - Warn user
-    - Ban user from report
-    - Display report metadata
-    - Back to reports navigation
-
-  - **Moderation Logs Tests** (`moderation-logs.spec.ts`)
-    - Display logs page
-    - Show correct table columns
-    - Filter logs by action type
-    - Display all logs filter
-    - Show action badges
-    - Display admin and target info
-    - Show timestamps
-    - Display content/report IDs
-    - Refresh logs
-
-  - **Platform Metrics Tests** (`platform-metrics.spec.ts`)
-    - Display dashboard with metrics
-    - Show key platform metrics
-    - Display numeric metric values
-    - Show recent moderation actions
-    - Refresh dashboard data
-    - Display metric icons
-    - Color-coded metric cards
-    - Format large numbers with commas
-
-  - **Suspended User Tests** (`suspended-user-login.spec.ts`)
-    - Prevent suspended user login
-    - Show suspension message
-    - Prevent banned user login
-    - Unsuspend user functionality
-    - Unban user functionality
-
-- ✅ **Seed Data Script** (`sprint7-admin.ts`)
-  - Admin user creation (admin.test@test.com)
-  - Users with different statuses (suspended, banned)
-  - 8 sample reports across all types
-  - 6 moderation action logs
-  - 20 user activity logs
-  - Report status distribution (pending, reviewing, resolved, dismissed)
-
-### Admin Credentials (Sprint 7)
-
-After running `npm run seed:sprint7`:
-
-| Email | Password | Role | Access Level |
-|-------|----------|------|--------------|
-| admin.test@test.com | Test123! | Admin | Full admin access |
-
-### Running Sprint 7
-
-```bash
-# Start Firebase emulators
-npm run emulators:start
-
-# In another terminal, seed Sprint 7 data
-# (Make sure to seed Sprint 1 first for base users)
-npm run seed:sprint1
-npm run seed:sprint7
-
-# Start the development server
-npm run dev:local
-
-# Run Sprint 7 E2E tests
-npm run test:e2e:local tests/e2e/sprint7
-```
-
-### Sprint 7 Features in Action
-
-**Admin Access:**
-1. Login with admin.test@test.com / Test123!
-2. Navigate to `/admin` to access admin dashboard
-3. View platform metrics and recent moderation actions
-4. Navigate using sidebar: Users, Reports, Events, Logs
-
-**User Management:**
-1. Go to `/admin/users` to view all users
-2. Search for specific users by email or name
-3. Click "View" to see user details and activity logs
-4. Suspend, ban, or verify users as needed
-5. View user status changes in real-time
-
-**Content Moderation:**
-1. Go to `/admin/reports` to view reports queue
-2. Filter by status: Pending, Reviewing, Resolved, Dismissed
-3. Click "Review" to see full report details
-4. Take action: Dismiss, Warn User, Remove Content, or Ban User
-5. All actions are logged in moderation logs
-
-**Moderation Logs:**
-1. Go to `/admin/logs` to view audit trail
-2. Filter by action type (suspend, ban, remove content, etc.)
-3. See who performed each action and when
-4. View target user and reason for each action
-5. Track content/report IDs for reference
-
-**Platform Monitoring:**
-1. View dashboard at `/admin` for key metrics
-2. Monitor user counts, posts, events, messages
-3. Track pending vs resolved reports
-4. View recent moderation actions
-5. Refresh data to see latest statistics
-
-### Admin Panel Pages
-
-- `/admin` - Admin dashboard with metrics
-- `/admin/users` - User management and search
-- `/admin/users/[userId]` - User detail and actions
-- `/admin/reports` - Reports queue
-- `/admin/reports/[reportId]` - Report detail and moderation
-- `/admin/events` - Events overview
-- `/admin/logs` - Moderation logs and audit trail
+1. [Project Overview](#-project-overview)
+2. [Prerequisites](#-prerequisites)
+3. [Installation](#-installation)
+4. [Firebase Configuration](#-firebase-configuration)
+5. [Running Locally](#-running-locally)
+6. [Seeding Test Data](#-seeding-test-data)
+7. [Running Tests](#-running-tests)
+8. [Development Workflow](#-development-workflow)
+9. [Deploying to Dev Environment](#-deploying-to-dev-environment)
+10. [Deploying to Production](#-deploying-to-production)
+11. [Environment Variables Reference](#-environment-variables-reference)
+12. [Project Structure](#-project-structure)
+13. [Testing Strategy](#-testing-strategy)
+14. [Security](#-security)
+15. [Monitoring and Maintenance](#-monitoring-and-maintenance)
+16. [Troubleshooting](#-troubleshooting)
+17. [Contributing](#-contributing)
+18. [License and Legal](#-license-and-legal)
+
+---
+
+## 🏠 Project Overview
+
+### What is ZipParents.com
+
+ZipParents is a hyper-local social platform designed exclusively for parents to connect with other parents in their area. The platform enables parents to:
+
+- **Connect locally** - Find parents within your zip code
+- **Share experiences** - Post updates, questions, and advice
+- **Organize events** - Create and attend local meetups and playdates
+- **Message safely** - Direct messaging with safety features
+- **Build community** - Join a supportive network of local parents
+
+### Features List
+
+#### Core Features (Sprint 1-7 Complete)
+
+✅ **Authentication & User Management**
+- Email/password signup and login
+- Age verification (18+ COPPA compliant)
+- Email verification with resend capability
+- Password reset flow
+- Protected routes with auth guards
+- Session persistence
+
+✅ **User Profiles**
+- Profile setup with bio and interests
+- Children's age range selection
+- Profile privacy controls
+- Profile editing and updates
+- Avatar/photo upload
+
+✅ **Community Feed**
+- Create, edit, and delete posts
+- Like and comment on posts
+- Filter by local zip code
+- Real-time feed updates
+- Image sharing in posts
+
+✅ **Messaging System**
+- 1-on-1 real-time messaging
+- Image sharing in messages
+- Read receipts and typing indicators
+- Unread message counts
+- Conversation muting
+- Message deletion
+
+✅ **Safety & Moderation**
+- Report users and content
+- Block users
+- Content filtering and spam detection
+- Admin dashboard for moderation
+- User suspension and banning
+- Moderation logs and audit trail
+
+✅ **Events & Calendar**
+- Interactive calendar (month/week/day views)
+- Create and manage events
+- RSVP and attendance tracking
+- Event capacity limits
+- Age range filtering
+- Event comments and discussions
+- Event cancellation with notifications
+
+✅ **SEO & Marketing**
+- Comprehensive meta tags (Open Graph, Twitter Cards)
+- JSON-LD structured data
+- Sitemap.xml and robots.txt
+- Public marketing pages
+- FAQ section
+- Google Analytics 4 integration
+
+✅ **Admin Panel**
+- User management (search, suspend, ban, verify)
+- Content moderation queue
+- Report review and actions
+- Platform metrics dashboard
+- Moderation logs
+- Event moderation
+
+### Tech Stack
+
+**Frontend:**
+- **Next.js 15** - React framework with App Router
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS
+- **Lucide React** - Icon library
+- **React Calendar** - Calendar component
+
+**Backend:**
+- **Firebase Authentication** - User authentication
+- **Cloud Firestore** - NoSQL database
+- **Firebase Storage** - File storage
+- **Firebase Security Rules** - Database security
+
+**Development & Testing:**
+- **Playwright** - E2E testing
+- **Firebase Emulators** - Local development
+- **ESLint** - Code linting
+- **TypeScript** - Static type checking
+
+**Analytics & SEO:**
+- **Google Analytics 4** - User analytics
+- **Next.js Metadata API** - SEO optimization
+- **JSON-LD** - Structured data
+
+---
 
 ## 🔧 Prerequisites
 
 Before you begin, ensure you have the following installed:
 
-- **Node.js** 18.x or higher
-- **npm** 9.x or higher
-- **Git**
-- **Firebase CLI** (installed automatically with npm install)
+### Required Software
+
+- **Node.js** - Version 18.x or higher
+  ```bash
+  node --version  # Should show v18.x or higher
+  ```
+
+- **npm** - Version 9.x or higher (comes with Node.js)
+  ```bash
+  npm --version
+  ```
+
+- **Git** - For version control
+  ```bash
+  git --version
+  ```
+
+- **Firebase CLI** - Installed automatically with npm install, or install globally:
+  ```bash
+  npm install -g firebase-tools
+  firebase --version
+  ```
+
+- **Playwright** - For E2E testing (installed with npm install)
+  ```bash
+  npx playwright --version
+  ```
+
+### Recommended Tools
+
+- **VS Code** - Code editor with TypeScript support
+- **Chrome/Firefox** - For testing and debugging
+- **Firebase Console Access** - For dev and prod projects
+
+### System Requirements
+
+- **OS**: macOS, Windows, or Linux
+- **RAM**: 8GB minimum (16GB recommended)
+- **Disk Space**: 2GB for dependencies and emulators
+
+---
 
 ## 📦 Installation
 
-1. **Clone the repository**
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/abhie1singh/zipparents-v1.git
 cd zipparents-v1
 ```
 
-2. **Install dependencies**
+### 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-3. **Set up environment variables**
+This will install:
+- Next.js and React
+- Firebase SDK and Admin SDK
+- Playwright for testing
+- TypeScript and type definitions
+- Tailwind CSS
+- All development dependencies
 
-```bash
-# For local development (already created)
-# The .env.local file is already configured for Firebase emulators
+### 3. Set Up Environment Variables
 
-# For dev environment (create from template)
-cp .env.dev.example .env.dev
-# Edit .env.dev and add your Firebase dev project credentials
+#### For Local Development (Already Configured)
 
-# For production (create from template)
-cp .env.prod.example .env.prod
-# Edit .env.prod and add your Firebase production project credentials
+The `.env.local` file is pre-configured for Firebase emulators:
+
+```env
+# .env.local (already exists)
+NEXT_PUBLIC_FIREBASE_ENV=local
+# No Firebase credentials needed for emulators
 ```
 
-## 🔥 Firebase Setup
+#### For Dev Environment
+
+Create `.env.dev` from template:
+
+```bash
+cp .env.dev.example .env.dev
+```
+
+Edit `.env.dev` and add your Firebase dev project credentials (see Firebase Configuration section).
+
+#### For Production
+
+Create `.env.prod` from template:
+
+```bash
+cp .env.prod.example .env.prod
+```
+
+Edit `.env.prod` and add your Firebase production project credentials.
+
+---
+
+## 🔥 Firebase Configuration
 
 ### Local Development (Firebase Emulators)
 
-For local development, we use Firebase emulators. No Firebase project setup is required!
+**No Firebase project needed!** Local development uses Firebase emulators.
 
-1. **Start Firebase emulators**
+✅ **Advantages:**
+- No internet connection required (after initial setup)
+- Instant reset and data seeding
+- No cloud costs
+- Fast iteration
 
-```bash
-npm run emulators:start
+The emulators are configured in `firebase.json`:
+
+```json
+{
+  "emulators": {
+    "auth": { "port": 9099 },
+    "firestore": { "port": 8080 },
+    "storage": { "port": 9199 },
+    "ui": { "enabled": true, "port": 4000 }
+  }
+}
 ```
 
-This will start:
-- Auth Emulator on http://localhost:9099
-- Firestore Emulator on http://localhost:8080
-- Storage Emulator on http://localhost:9199
-- Emulator UI on http://localhost:4000
+### Creating Firebase Projects (Dev and Prod)
 
-2. **In a separate terminal, start the Next.js dev server**
+#### Step 1: Create Firebase Project
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Click **"Add project"**
+3. Enter project name:
+   - Dev: `zipparents-dev`
+   - Prod: `zipparents-prod`
+4. Enable/disable Google Analytics (optional for dev, recommended for prod)
+5. Click **"Create project"**
+
+#### Step 2: Enable Firebase Services
+
+**Authentication:**
+1. In Firebase Console, go to **Authentication**
+2. Click **"Get started"**
+3. Enable **Email/Password** provider
+4. (Optional) Enable other providers if needed
+
+**Firestore Database:**
+1. Go to **Firestore Database**
+2. Click **"Create database"**
+3. Choose location (us-central1 recommended)
+4. Start in **Production mode** (we'll deploy rules later)
+5. Click **"Enable"**
+
+**Firebase Storage:**
+1. Go to **Storage**
+2. Click **"Get started"**
+3. Start in **Production mode**
+4. Use same location as Firestore
+5. Click **"Done"**
+
+#### Step 3: Set Up Firebase CLI
+
+**Login to Firebase:**
 
 ```bash
-npm run dev:local
+firebase login
 ```
 
-Visit http://localhost:3000 to see your application.
+**Add projects to `.firebaserc`:**
 
-### Development Environment Setup
+```bash
+# Add dev project
+firebase use --add
+# Select: zipparents-dev
+# Alias: dev
 
-1. **Create a Firebase project**
+# Add prod project
+firebase use --add
+# Select: zipparents-prod
+# Alias: prod
+```
 
-- Go to [Firebase Console](https://console.firebase.google.com/)
-- Click "Add project"
-- Name it `zipparents-dev`
-- Enable Google Analytics (optional)
+Your `.firebaserc` should look like:
 
-2. **Enable Firebase services**
+```json
+{
+  "projects": {
+    "dev": "zipparents-dev",
+    "prod": "zipparents-prod",
+    "default": "zipparents-local"
+  }
+}
+```
 
-- **Authentication**: Enable Email/Password provider
-- **Firestore**: Create database in production mode
-- **Storage**: Set up Firebase Storage
+#### Step 4: Get Firebase Configuration
 
-3. **Get Firebase configuration**
+**For Web App:**
 
-- Go to Project Settings > General
-- Scroll down to "Your apps"
-- Click on the Web app icon (</>) or "Add app"
-- Copy the configuration object
+1. In Firebase Console, go to **Project Settings** (gear icon)
+2. Scroll to **"Your apps"** section
+3. Click **Web** icon (`</>`) to add a web app
+4. Register app name: `zipparents-dev` (or `zipparents-prod`)
+5. Copy the configuration object
 
-4. **Update .env.dev file**
+**Update .env.dev (or .env.prod):**
 
 ```env
 NEXT_PUBLIC_FIREBASE_ENV=dev
-NEXT_PUBLIC_FIREBASE_API_KEY=your_dev_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-dev-project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-dev-project-id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-dev-project.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_dev_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_dev_app_id
+NEXT_PUBLIC_FIREBASE_API_KEY=AIza...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=zipparents-dev.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=zipparents-dev
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=zipparents-dev.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 
-5. **Set up Service Account (for server-side operations)**
+#### Step 5: Downloading Service Account Keys
 
-- Go to Project Settings > Service Accounts
-- Click "Generate new private key"
-- Download the JSON file
-- Convert to single-line string and add to .env.dev:
+**For server-side operations (seeding, admin tasks):**
+
+1. Go to **Project Settings** > **Service Accounts**
+2. Click **"Generate new private key"**
+3. Click **"Generate key"** (downloads JSON file)
+4. **IMPORTANT**: Keep this file secure, never commit to git
+
+**Convert to single-line string:**
 
 ```bash
 # On Mac/Linux:
 cat path/to/serviceAccountKey.json | jq -c '.' | pbcopy
 
-# Then paste in .env.dev:
-FIREBASE_SERVICE_ACCOUNT_KEY={"type":"service_account","project_id":"..."}
+# On Windows (PowerShell):
+Get-Content path/to/serviceAccountKey.json | ConvertTo-Json -Compress | Set-Clipboard
 ```
 
-6. **Deploy Firestore rules and indexes**
+**Add to .env.dev (or .env.prod):**
 
-```bash
-firebase deploy --only firestore:rules,firestore:indexes --project your-dev-project-id
+```env
+FIREBASE_SERVICE_ACCOUNT_KEY={"type":"service_account","project_id":"zipparents-dev",...}
 ```
 
-7. **Deploy Storage rules**
+#### Step 6: Deploy Firestore Rules and Indexes
 
 ```bash
-firebase deploy --only storage:rules --project your-dev-project-id
+# Deploy to dev project
+firebase use dev
+firebase deploy --only firestore:rules,firestore:indexes
+
+# Deploy to prod project
+firebase use prod
+firebase deploy --only firestore:rules,firestore:indexes
 ```
 
-### Production Environment Setup
-
-Follow the same steps as Development Environment, but:
-- Name the project `zipparents-prod`
-- Use .env.prod file
-- Be extra careful with production credentials
-
-## 🚀 Development
-
-### Running the application
+#### Step 7: Deploy Storage Rules
 
 ```bash
-# Local development (with Firebase emulators)
+# Deploy to dev
+firebase use dev
+firebase deploy --only storage:rules
+
+# Deploy to prod
+firebase use prod
+firebase deploy --only storage:rules
+```
+
+**Verify deployment:**
+
+1. Check Firebase Console > Firestore Database > Rules
+2. Check Firebase Console > Storage > Rules
+3. Ensure rules are active
+
+---
+
+## 🚀 Running Locally
+
+### Starting Firebase Emulators
+
+**Terminal 1 - Start Emulators:**
+
+```bash
+npm run emulators:start
+```
+
+This starts:
+- **Auth Emulator** - http://localhost:9099
+- **Firestore Emulator** - http://localhost:8080
+- **Storage Emulator** - http://localhost:9199
+- **Emulator UI** - http://localhost:4000
+
+**What you'll see:**
+
+```
+✔  All emulators ready! It is now safe to connect your app.
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready!                                     │
+│                                                             │
+│ View Emulator UI at http://localhost:4000                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Starting Next.js Dev Server
+
+**Terminal 2 - Start Next.js:**
+
+```bash
 npm run dev:local
+```
 
-# Development environment (uses Firebase dev project)
-npm run dev:dev
+Or use the default (same as dev:local):
 
-# Production environment (uses Firebase production project)
-npm run dev:prod
-
-# Default (same as dev:local)
+```bash
 npm run dev
 ```
 
-### Building for production
+**What you'll see:**
+
+```
+▲ Next.js 15.5.4
+- Local:        http://localhost:3000
+- Environments: .env.local
+
+✓ Ready in 2.5s
+```
+
+### Accessing the Application
+
+**Main App:**
+- http://localhost:3000 - ZipParents application
+
+**Emulator UI:**
+- http://localhost:4000 - Firebase Emulator UI
+  - View Auth users
+  - Browse Firestore collections
+  - Check Storage files
+  - Monitor logs
+
+### Stopping Emulators
+
+**To stop emulators:**
+
+1. Press `Ctrl+C` in the emulator terminal
+2. Data is automatically exported to `./firebase-emulator-data`
+
+**Next time you start:**
 
 ```bash
-# Build for dev environment
-npm run build:dev
-
-# Build for production environment
-npm run build:prod
-
-# Start production server
-npm run start
+npm run emulators:start
+# Automatically imports previous data
 ```
 
-### Code quality
+### Exporting/Importing Emulator Data
 
-```bash
-# Run ESLint
-npm run lint
-
-# Type checking
-npm run type-check
-```
-
-## 🧪 Testing
-
-### End-to-End Tests (Playwright)
-
-```bash
-# Run all tests against local environment
-npm run test:e2e:local
-
-# Run Sprint 1 tests only
-npm run test:e2e:local tests/e2e/sprint1
-
-# Run specific test file
-npm run test:e2e:local tests/e2e/sprint1/signup.spec.ts
-
-# Run tests against dev environment
-npm run test:e2e:dev
-
-# Run tests against production environment
-npm run test:e2e:prod
-
-# Run tests in UI mode (interactive)
-npm run test:e2e:ui
-
-# Debug tests
-npm run test:e2e:debug
-
-# View test report
-npm run test:e2e:report
-```
-
-### Test Coverage by Sprint
-
-**Sprint 6 Tests** (`tests/e2e/sprint6/`)
-- **SEO & Public Pages** (`seo.spec.ts`)
-  - Homepage meta tags validation (title, description, OG, Twitter)
-  - Sitemap.xml accessibility and XML structure
-  - Robots.txt accessibility and format
-  - All public pages accessible with proper meta tags
-  - FAQ accordion functionality with ARIA attributes
-  - Structured data (JSON-LD) validation
-  - Canonical URL verification
-
-**Sprint 1 Tests** (`tests/e2e/sprint1/`)
-- **Signup Flow** (`signup.spec.ts`)
-  - Form validation
-  - Email format validation
-  - Password requirements
-  - Terms acceptance requirement
-  - Successful signup flow
-  - Duplicate email handling
-
-- **Login Flow** (`login.spec.ts`)
-  - Form validation
-  - Invalid credentials handling
-  - Successful login with verified user
-  - Unverified user redirect to verification
-  - Logout functionality
-
-- **Age Verification** (`age-verification.spec.ts`)
-  - Under 18 rejection (COPPA compliance)
-  - Exactly 18 years old acceptance
-  - Over 18 acceptance
-  - Age verification display
-  - Max date validation
-
-- **Protected Routes** (`protected-routes.spec.ts`)
-  - Redirect to login when unauthenticated
-  - Access granted when authenticated
-  - Unverified users redirect to verification
-  - Auth persistence across navigation
-
-**Sprint 4 Tests** (`tests/e2e/sprint4/`)
-- **Messaging** (`messaging.spec.ts`)
-  - Navigate to messages page
-  - Empty state display
-  - Start conversation between connected users
-  - Send and receive text messages
-  - Real-time message display
-  - Non-connected users cannot message
-  - Report user functionality
-  - Block user functionality
-  - Blocked users cannot message each other
-  - Mute conversation
-  - Unread message count display
-
-**Sprint 5 Tests** (`tests/e2e/sprint5/`)
-- **Events & Calendar** (`events.spec.ts`)
-  - Navigate to calendar page
-  - Navigate to create event page
-  - Create event with full form
-  - Display event on calendar with marker
-  - RSVP to event
-  - Cancel RSVP
-  - Show attendee count correctly
-  - Event creator can edit event
-  - Event creator can cancel event
-  - Prevent RSVP to cancelled event
-  - Filter events by age range
-  - Add comment to event
-
-**Sprint 7 Tests** (`tests/e2e/sprint7/`)
-- **Admin Access Control** (`admin-access.spec.ts`)
-  - Block non-admin users from accessing admin panel
-  - Allow admin users to access admin panel
-  - Redirect unauthenticated users
-  - Show admin navigation links
-
-- **User Management** (`user-management.spec.ts`)
-  - Display user list page with table
-  - Search users by email
-  - Search users by display name
-  - View user details page
-  - Suspend user
-  - Verify user manually
-  - Ban user
-  - Display user activity logs
-  - Clear search results
-
-- **Content Moderation** (`content-moderation.spec.ts`)
-  - Display reports queue
-  - Filter reports by status
-  - View report details
-  - Dismiss report with reason
-  - Remove reported content
-  - Warn user
-  - Ban user from report
-  - Display report metadata
-  - Navigate back to reports
-
-- **Moderation Logs** (`moderation-logs.spec.ts`)
-  - Display moderation logs page
-  - Show correct table columns
-  - Filter logs by action type
-  - Display all logs when "All" selected
-  - Show action badges with colors
-  - Display admin and target user info
-  - Show timestamps
-  - Display content/report IDs in details
-  - Refresh logs functionality
-  - Show correct log count in footer
-
-- **Platform Metrics** (`platform-metrics.spec.ts`)
-  - Display admin dashboard with metrics
-  - Show key platform metrics
-  - Display metric values as numbers
-  - Show recent moderation actions table
-  - Refresh dashboard data
-  - Display metric cards with icons
-  - Show color-coded metric cards
-  - Format large numbers with commas
-
-- **Suspended User Login** (`suspended-user-login.spec.ts`)
-  - Prevent suspended user from accessing app
-  - Show appropriate suspension message
-  - Prevent banned user from accessing app
-  - Unsuspend previously suspended user
-  - Unban previously banned user
-
-### Writing Tests
-
-Tests are located in the `tests/` directory:
-
-- `tests/e2e/` - End-to-end tests
-- `tests/fixtures/` - Test fixtures (auth, etc.)
-- `tests/helpers/` - Helper functions for tests
-- `tests/data/` - Test data factories
-
-Example test:
-
-```typescript
-import { test, expect } from '@playwright/test';
-
-test('user can create a post', async ({ page }) => {
-  await page.goto('/');
-  // ... test code
-});
-```
-
-## 🌱 Seeding Data
-
-### Local Environment
-
-```bash
-# Seed Sprint 1 test users (10 users with different scenarios)
-npm run seed:sprint1
-
-# Seed Sprint 2 test data (profiles for existing users)
-npm run seed:sprint2
-
-# Seed Sprint 4 test data (conversations, messages, reports, blocks)
-npm run seed:sprint4
-
-# Seed Sprint 5 test data (events, event comments)
-npm run seed:sprint5
-
-# Seed Sprint 7 test data (admin users, reports, moderation logs)
-npm run seed:sprint7
-
-# Seed users only (general seeding - future sprints)
-npm run seed:users
-
-# Seed comprehensive test data (users, posts, groups, events, etc. - future sprints)
-npm run seed:data
-
-# Alternative (same as seed:data)
-npm run seed:local
-
-# Clear all data from local emulators
-npm run clear-data:local
-```
-
-### Development Environment
-
-```bash
-# Seed users to dev Firebase project
-npm run seed:users:dev
-
-# Seed comprehensive test data to dev Firebase project
-npm run seed:data:dev
-
-# Alternative (same as seed:data:dev)
-npm run seed:dev
-
-# Clear data from dev Firebase project (requires --force flag)
-npm run clear-data:dev -- --force
-```
-
-### Sprint 1 Test Accounts
-
-```bash
-# Seed Sprint 1 test users
-npm run seed:sprint1
-```
-
-After seeding, these accounts are available:
-
-| Email | Password | Role | Email Verified | Scenario |
-|-------|----------|------|----------------|----------|
-| verified.parent@test.com | Test123! | User | Yes | Active parent |
-| unverified.parent@test.com | Test123! | User | No | Needs verification |
-| new.parent@test.com | Test123! | User | Yes | Recently joined |
-| local.parent@test.com | Test123! | User | Yes | Local community |
-| young.parent@test.com | Test123! | User | Yes | Younger parent (25) |
-| experienced.parent@test.com | Test123! | User | Yes | Experienced parent |
-| single.parent@test.com | Test123! | User | Yes | Single parent |
-| working.parent@test.com | Test123! | User | Yes | Working parent |
-| stayathome.parent@test.com | Test123! | User | Yes | Stay-at-home parent |
-| admin.test@test.com | Test123! | Admin | Yes | Admin account |
-
-## 📁 Project Structure
-
-```
-zipparents-v1/
-├── app/                      # Next.js App Router
-│   ├── layout.tsx           # Root layout
-│   ├── page.tsx             # Home page
-│   └── globals.css          # Global styles
-├── config/                   # Configuration files
-│   ├── firebase.local.ts    # Local (emulator) config
-│   ├── firebase.dev.ts      # Development config
-│   └── firebase.prod.ts     # Production config
-├── lib/                      # Shared libraries
-│   ├── firebase/
-│   │   ├── clientApp.ts     # Firebase client SDK setup
-│   │   └── adminApp.ts      # Firebase Admin SDK setup
-│   ├── seo/
-│   │   └── metadata.ts      # SEO utilities and structured data
-│   ├── analytics/
-│   │   └── ga.ts            # Google Analytics 4 integration
-│   └── env.ts               # Environment utilities
-├── scripts/                  # Utility scripts
-│   ├── seed/
-│   │   ├── seed-users.ts    # User seeding script
-│   │   ├── seed-test-data.ts # Full data seeding
-│   │   └── clear-data.ts    # Data cleanup script
-│   └── run-script.sh        # Script runner
-├── tests/                    # Test files
-│   ├── e2e/                 # End-to-end tests
-│   │   ├── sprint1/         # Sprint 1 tests
-│   │   ├── sprint4/         # Sprint 4 tests
-│   │   ├── sprint5/         # Sprint 5 tests
-│   │   └── sprint6/         # Sprint 6 tests
-│   ├── fixtures/            # Test fixtures
-│   ├── helpers/             # Test helpers
-│   ├── utils/               # Test utilities
-│   │   └── seo-helpers.ts   # SEO testing utilities
-│   └── data/                # Test data factories
-├── .env.local               # Local environment variables
-├── .env.dev.example         # Dev environment template
-├── .env.prod.example        # Prod environment template
-├── firebase.json            # Firebase configuration
-├── firestore.rules          # Firestore security rules
-├── firestore.indexes.json   # Firestore indexes
-├── storage.rules            # Storage security rules
-├── playwright.config.ts     # Playwright configuration
-├── tailwind.config.ts       # Tailwind CSS configuration
-├── tsconfig.json            # TypeScript configuration
-└── package.json             # Project dependencies
-```
-
-## 🔐 Environment Configuration
-
-The project supports three environments:
-
-### Local (Emulators)
-- Uses Firebase emulators
-- No Firebase project required
-- Perfect for development and testing
-- Data persists between restarts (if exported)
-
-### Development (Dev Firebase Project)
-- Uses real Firebase project
-- For testing in cloud environment
-- Share with team members
-- Can seed with test data
-
-### Production (Prod Firebase Project)
-- Uses production Firebase project
-- Real user data
-- Should NOT seed test data
-- Extra safety checks in scripts
-
-## 🔄 Firebase Emulator Data Management
-
-### Export emulator data
+**Manual export:**
 
 ```bash
 npm run emulators:export
 ```
 
-This saves the current emulator data to `./firebase-emulator-data`
+Saves current state to `./firebase-emulator-data/`
 
-### Import emulator data
+**Import on startup:**
 
 ```bash
 npm run emulators:import
 ```
 
-This starts emulators with previously exported data.
+Starts emulators with previously exported data.
 
-### Auto-export on exit
+**Auto-export (built-in):**
 
-The `emulators:start` script automatically exports data when you stop the emulators (Ctrl+C).
+The `emulators:start` script uses `--export-on-exit` flag to automatically save data when you stop emulators.
+
+---
+
+## 🌱 Seeding Test Data
+
+### Seed All Data (Recommended)
+
+**Local environment:**
+
+```bash
+# Seed comprehensive test data (all sprints)
+npm run seed:local
+```
+
+**Dev environment:**
+
+```bash
+npm run seed:dev
+```
+
+### Seed Specific Sprint Data
+
+**Sprint 1 - Users and Authentication:**
+
+```bash
+npm run seed:sprint1         # Local
+npm run seed:sprint1:dev     # Dev
+```
+
+Creates 10 test users with different scenarios.
+
+**Sprint 2 - Profiles:**
+
+```bash
+npm run seed:sprint2         # Local
+npm run seed:sprint2:dev     # Dev
+```
+
+Adds profiles to existing users.
+
+**Sprint 4 - Messages:**
+
+```bash
+npm run seed:sprint4         # Local
+npm run seed:sprint4:dev     # Dev
+```
+
+Creates conversations, messages, reports, and blocks.
+
+**Sprint 5 - Events:**
+
+```bash
+npm run seed:sprint5         # Local
+npm run seed:sprint5:dev     # Dev
+```
+
+Creates 14 diverse events and event comments.
+
+**Sprint 7 - Admin:**
+
+```bash
+npm run seed:sprint7         # Local
+npm run seed:sprint7:dev     # Dev
+```
+
+Creates admin user, reports, and moderation logs.
+
+### Seed Modular Data
+
+**Users only:**
+
+```bash
+npm run seed:users           # Local
+npm run seed:users:dev       # Dev
+```
+
+**Comprehensive test data:**
+
+```bash
+npm run seed:data            # Local (same as seed:local)
+npm run seed:data:dev        # Dev (same as seed:dev)
+```
+
+### Clear All Data
+
+**Local environment:**
+
+```bash
+npm run clear-data:local
+```
+
+**Dev environment (requires confirmation):**
+
+```bash
+npm run clear-data:dev
+```
+
+⚠️ **Warning**: This deletes all data. Use with caution in dev!
+
+### Available Test Accounts
+
+After seeding, use these credentials to login:
+
+| Email | Password | Role | Status | Scenario |
+|-------|----------|------|--------|----------|
+| verified.parent@test.com | Test123! | User | Verified | Active parent |
+| unverified.parent@test.com | Test123! | User | Unverified | Needs email verification |
+| new.parent@test.com | Test123! | User | Verified | Recently joined |
+| local.parent@test.com | Test123! | User | Verified | Local community member |
+| young.parent@test.com | Test123! | User | Verified | Younger parent (25) |
+| experienced.parent@test.com | Test123! | User | Verified | Experienced parent |
+| single.parent@test.com | Test123! | User | Verified | Single parent |
+| working.parent@test.com | Test123! | User | Verified | Working parent |
+| stayathome.parent@test.com | Test123! | User | Verified | Stay-at-home parent |
+| admin.test@test.com | Test123! | Admin | Verified | Full admin access |
+
+**All users:**
+- Password: `Test123!`
+- Age verified (18+)
+- Different zip codes (10001-10005)
+
+---
+
+## 🧪 Running Tests
+
+### E2E Tests Locally
+
+**Run all tests against local emulators:**
+
+```bash
+npm run test:e2e:local
+```
+
+**Run specific sprint tests:**
+
+```bash
+npm run test:e2e:local tests/e2e/sprint1
+npm run test:e2e:local tests/e2e/sprint4
+npm run test:e2e:local tests/e2e/sprint5
+npm run test:e2e:local tests/e2e/sprint6
+npm run test:e2e:local tests/e2e/sprint7
+```
+
+### E2E Tests on Dev/Prod
+
+**Test against dev environment:**
+
+```bash
+npm run test:e2e:dev
+```
+
+**Test against production:**
+
+```bash
+npm run test:e2e:prod
+```
+
+### Run Specific Test Suite
+
+**Single test file:**
+
+```bash
+npm run test:e2e:local tests/e2e/sprint1/signup.spec.ts
+```
+
+**Pattern matching:**
+
+```bash
+npm run test:e2e:local -- --grep "admin"
+```
+
+### Run in Headed Mode (See Browser)
+
+**Watch tests run in browser:**
+
+```bash
+npm run test:e2e:local -- --headed
+```
+
+**Debug specific test:**
+
+```bash
+npm run test:e2e:debug
+```
+
+Opens Playwright Inspector for step-by-step debugging.
+
+### Generate Test Report
+
+**View HTML report:**
+
+```bash
+npm run test:e2e:report
+```
+
+Opens browser with detailed test results, screenshots, and traces.
+
+**UI Mode (Interactive):**
+
+```bash
+npm run test:e2e:ui
+```
+
+Interactive test runner with time-travel debugging.
+
+### Test by Browser
+
+**Run in specific browser:**
+
+```bash
+npm run test:e2e:local -- --project=chromium
+npm run test:e2e:local -- --project=firefox
+npm run test:e2e:local -- --project=webkit
+```
+
+**Run in all browsers:**
+
+```bash
+npm run test:e2e:local -- --project=chromium --project=firefox --project=webkit
+```
+
+### Test Coverage Summary
+
+| Sprint | Test File | Tests | Coverage |
+|--------|-----------|-------|----------|
+| Sprint 1 | signup.spec.ts | 6 | Signup flow, validation |
+| Sprint 1 | login.spec.ts | 5 | Login, logout, verification |
+| Sprint 1 | age-verification.spec.ts | 5 | COPPA compliance |
+| Sprint 1 | protected-routes.spec.ts | 4 | Auth guards |
+| Sprint 4 | messaging.spec.ts | 11 | Messages, safety |
+| Sprint 5 | events.spec.ts | 12 | Calendar, events, RSVP |
+| Sprint 6 | seo.spec.ts | 7 | SEO, meta tags |
+| Sprint 7 | admin-access.spec.ts | 4 | Admin access |
+| Sprint 7 | user-management.spec.ts | 9 | User actions |
+| Sprint 7 | content-moderation.spec.ts | 9 | Reports, moderation |
+| Sprint 7 | moderation-logs.spec.ts | 10 | Audit logs |
+| Sprint 7 | platform-metrics.spec.ts | 8 | Dashboard metrics |
+| **Total** | | **90+** | **All critical flows** |
+
+---
+
+## 💼 Development Workflow
+
+### Feature Branch Strategy
+
+**1. Create feature branch from main:**
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/your-feature-name
+```
+
+**Branch naming conventions:**
+- `feature/` - New features
+- `fix/` - Bug fixes
+- `refactor/` - Code refactoring
+- `test/` - Test additions
+- `docs/` - Documentation
+
+**2. Make your changes:**
+
+```bash
+# Create/modify files
+# Write tests for new features
+```
+
+**3. Commit with descriptive messages:**
+
+```bash
+git add .
+git commit -m "feat: add user profile editing
+
+- Add edit profile page
+- Implement form validation
+- Add image upload
+- Update Firestore security rules
+- Add E2E tests for editing"
+```
+
+**Commit message format:**
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `refactor:` - Code refactoring
+- `test:` - Test additions
+- `docs:` - Documentation
+- `style:` - Code style changes
+- `chore:` - Maintenance tasks
+
+### Testing Before Commit
+
+**Run all checks:**
+
+```bash
+# Linting
+npm run lint
+
+# Type checking
+npm run type-check
+
+# Build check
+npm run build
+
+# Run tests
+npm run test:e2e:local
+```
+
+**Pre-commit checklist:**
+- [ ] Code passes linting
+- [ ] No TypeScript errors
+- [ ] All tests pass
+- [ ] New features have tests
+- [ ] Documentation updated
+- [ ] No console.log() statements
+
+### Code Review Process
+
+**1. Push your branch:**
+
+```bash
+git push origin feature/your-feature-name
+```
+
+**2. Create Pull Request:**
+
+- Go to GitHub repository
+- Click "Pull requests" > "New pull request"
+- Select your branch
+- Fill in PR template:
+  - Description of changes
+  - Related issues
+  - Testing done
+  - Screenshots (if UI changes)
+
+**3. Request review:**
+
+- Assign reviewers
+- Add labels (feature, bug, etc.)
+- Link related issues
+
+**4. Address feedback:**
+
+```bash
+# Make requested changes
+git add .
+git commit -m "refactor: address PR feedback"
+git push origin feature/your-feature-name
+```
+
+**5. Approval and merge:**
+
+- Wait for approvals (minimum 1)
+- Ensure CI/CD passes
+- Squash and merge to main
+
+### Merging to Main
+
+**After PR approval:**
+
+1. **Squash commits** (on GitHub)
+2. **Merge pull request**
+3. **Delete branch** (on GitHub)
+
+**Locally:**
+
+```bash
+git checkout main
+git pull origin main
+git branch -d feature/your-feature-name
+```
+
+**After merge:**
+- Main branch auto-deploys to dev environment
+- Run smoke tests on dev
+- Monitor for errors
+
+---
+
+## 🚢 Deploying to Dev Environment
+
+### Build for Dev
+
+**1. Ensure you're on main branch:**
+
+```bash
+git checkout main
+git pull origin main
+```
+
+**2. Run pre-deployment checks:**
+
+```bash
+# Linting
+npm run lint
+
+# Type check
+npm run type-check
+
+# Run tests
+npm run test:e2e:local
+```
+
+**3. Build for dev environment:**
+
+```bash
+npm run build:dev
+```
+
+This builds Next.js with `NEXT_PUBLIC_FIREBASE_ENV=dev`.
+
+### Deploy to Firebase
+
+**Deploy Firestore rules and indexes:**
+
+```bash
+firebase use dev
+firebase deploy --only firestore:rules,firestore:indexes
+```
+
+**Deploy Storage rules:**
+
+```bash
+firebase deploy --only storage:rules
+```
+
+**Deploy all Firebase resources:**
+
+```bash
+firebase deploy --project zipparents-dev
+```
+
+### Verify Deployment
+
+**1. Check build output:**
+
+```bash
+ls -la .next
+```
+
+Should show `.next/` directory with compiled files.
+
+**2. Test locally with dev config:**
+
+```bash
+npm run dev:dev
+```
+
+Visit http://localhost:3000 and verify connection to dev Firebase.
+
+**3. Check Firebase Console:**
+
+- Verify rules are deployed
+- Check indexes are created
+- Ensure no errors in Firebase logs
+
+### Run Smoke Tests
+
+**Run critical tests against dev:**
+
+```bash
+npm run test:e2e:dev
+```
+
+**Manual smoke test checklist:**
+- [ ] User can sign up
+- [ ] User can login
+- [ ] User can create post
+- [ ] User can create event
+- [ ] User can send message
+- [ ] Admin can access admin panel
+
+**Monitor for errors:**
+- Check Firebase Console > Firestore > Usage
+- Check Firebase Console > Authentication > Users
+- Check application logs
+
+### Deploy to Vercel (if applicable)
+
+**Install Vercel CLI:**
+
+```bash
+npm install -g vercel
+```
+
+**Deploy:**
+
+```bash
+vercel --prod --env NEXT_PUBLIC_FIREBASE_ENV=dev
+```
+
+**Set environment variables in Vercel:**
+
+Go to Vercel Dashboard > Project > Settings > Environment Variables and add all `NEXT_PUBLIC_*` variables from `.env.dev`.
+
+---
+
+## 🚀 Deploying to Production
+
+### Pre-Deployment Checklist
+
+**Code Quality:**
+- [ ] All tests passing (unit, E2E)
+- [ ] No linting errors
+- [ ] No TypeScript errors
+- [ ] Code reviewed and approved
+- [ ] No console.log statements
+- [ ] No debug code
+
+**Testing:**
+- [ ] All E2E tests pass on dev
+- [ ] Manual testing completed
+- [ ] Edge cases tested
+- [ ] Mobile responsive verified
+- [ ] Cross-browser tested
+
+**Infrastructure:**
+- [ ] Database migrations completed
+- [ ] Firestore indexes deployed
+- [ ] Firebase rules deployed
+- [ ] Environment variables set
+- [ ] Backup created
+
+**Documentation:**
+- [ ] README updated
+- [ ] CHANGELOG updated
+- [ ] API docs updated (if applicable)
+- [ ] Deployment notes written
+
+**Team:**
+- [ ] Team notified of deployment
+- [ ] Stakeholders informed
+- [ ] Support team briefed
+- [ ] Rollback plan ready
+
+### Build for Production
+
+**1. Switch to production branch:**
+
+```bash
+git checkout main
+git pull origin main
+```
+
+**2. Create release tag:**
+
+```bash
+git tag -a v1.0.0 -m "Release v1.0.0: Initial production release"
+git push origin v1.0.0
+```
+
+**3. Build for production:**
+
+```bash
+npm run build:prod
+```
+
+This sets `NEXT_PUBLIC_FIREBASE_ENV=prod` and builds optimized bundle.
+
+**4. Verify build:**
+
+```bash
+# Check bundle size
+ls -lh .next/static
+
+# Test production build locally
+npm run start
+```
+
+### Deploy to Firebase
+
+**1. Switch to prod project:**
+
+```bash
+firebase use prod
+```
+
+**2. Deploy Firebase resources:**
+
+```bash
+# Deploy Firestore rules
+firebase deploy --only firestore:rules
+
+# Deploy Firestore indexes
+firebase deploy --only firestore:indexes
+
+# Deploy Storage rules
+firebase deploy --only storage:rules
+
+# Deploy all
+firebase deploy --project zipparents-prod
+```
+
+**3. Verify Firebase deployment:**
+
+- Firebase Console > Firestore > Rules (check timestamp)
+- Firebase Console > Firestore > Indexes (verify all indexes)
+- Firebase Console > Storage > Rules
+
+### Deploy to Vercel/Hosting
+
+**Deploy to Vercel:**
+
+```bash
+vercel --prod
+```
+
+**Or deploy to Firebase Hosting:**
+
+```bash
+firebase deploy --only hosting --project zipparents-prod
+```
+
+### Post-Deployment Verification
+
+**1. Health check:**
+
+Visit https://zipparents.com/api/health (or your domain)
+
+**2. Critical user journeys:**
+
+- [ ] Homepage loads
+- [ ] User can sign up
+- [ ] User can login
+- [ ] User can create post
+- [ ] User can create event
+- [ ] User can send message
+- [ ] Search works
+- [ ] Admin panel accessible
+
+**3. Monitor logs:**
+
+```bash
+# Vercel logs
+vercel logs
+
+# Firebase logs
+firebase functions:log --project zipparents-prod
+```
+
+**4. Check analytics:**
+
+- Google Analytics dashboard
+- Firebase Analytics console
+- Error tracking (Sentry, etc.)
+
+**5. Performance check:**
+
+- Run Lighthouse audit
+- Check Core Web Vitals
+- Verify page load times < 3s
+
+### Rollback Procedure
+
+**If issues occur in production:**
+
+**1. Quick rollback via Vercel:**
+
+```bash
+# List deployments
+vercel list
+
+# Rollback to previous deployment
+vercel rollback [deployment-url]
+```
+
+**2. Rollback via Git:**
+
+```bash
+# Find previous release tag
+git tag -l
+
+# Checkout previous version
+git checkout v0.9.0
+
+# Rebuild and redeploy
+npm run build:prod
+vercel --prod
+```
+
+**3. Rollback Firebase rules:**
+
+```bash
+# Checkout previous rules
+git checkout v0.9.0 -- firestore.rules storage.rules
+
+# Redeploy
+firebase deploy --only firestore:rules,storage:rules --project zipparents-prod
+```
+
+**4. Notify team:**
+
+- Post in Slack/Teams
+- Email stakeholders
+- Update status page
+- Create incident report
+
+**5. Post-mortem:**
+
+- Document what went wrong
+- Identify root cause
+- Implement preventive measures
+- Update deployment checklist
+
+---
+
+## 📊 Environment Variables Reference
+
+### Local Environment (.env.local)
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `NEXT_PUBLIC_FIREBASE_ENV` | `local` | Environment identifier |
+| No Firebase credentials needed | - | Uses emulators with demo config |
+
+### Dev Environment (.env.dev)
+
+| Variable | Example | Where to Find | Required |
+|----------|---------|---------------|----------|
+| `NEXT_PUBLIC_FIREBASE_ENV` | `dev` | Hardcode | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | `AIza...` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `zipparents-dev.firebaseapp.com` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `zipparents-dev` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `zipparents-dev.appspot.com` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `123456789` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | `1:123456789:web:abc` | Firebase Console > Project Settings > General | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | `G-XXXXXXXXXX` | Firebase Console > Project Settings > General | ⚪ Optional |
+| `FIREBASE_SERVICE_ACCOUNT_KEY` | `{"type":"service_account"...}` | Firebase Console > Project Settings > Service Accounts | ✅ Yes (for seeding) |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-XXXXXXXXXX` | Google Analytics | ⚪ Optional |
+| `NEXT_PUBLIC_BASE_URL` | `https://zipparents-dev.vercel.app` | Your dev URL | ✅ Yes |
+
+### Production Environment (.env.prod)
+
+| Variable | Example | Where to Find | Required |
+|----------|---------|---------------|----------|
+| `NEXT_PUBLIC_FIREBASE_ENV` | `prod` | Hardcode | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_API_KEY` | `AIza...` | Firebase Console (prod project) | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | `zipparents.com` | Custom domain or Firebase | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | `zipparents-prod` | Firebase Console (prod project) | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET` | `zipparents-prod.appspot.com` | Firebase Console (prod project) | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | `987654321` | Firebase Console (prod project) | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_APP_ID` | `1:987654321:web:xyz` | Firebase Console (prod project) | ✅ Yes |
+| `NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID` | `G-YYYYYYYYYY` | Firebase Console (prod project) | ⚪ Optional |
+| `FIREBASE_SERVICE_ACCOUNT_KEY` | `{"type":"service_account"...}` | Firebase Console (prod) > Service Accounts | ✅ Yes |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | `G-YYYYYYYYYY` | Google Analytics (prod) | ✅ Yes |
+| `NEXT_PUBLIC_BASE_URL` | `https://zipparents.com` | Your production domain | ✅ Yes |
+
+### Security Notes
+
+⚠️ **Never commit `.env.*` files to git**
+
+```bash
+# Already in .gitignore:
+.env.local
+.env.dev
+.env.prod
+.env*.local
+```
+
+⚠️ **Service Account Keys are sensitive**
+- Never share publicly
+- Rotate regularly (every 90 days)
+- Store securely (1Password, AWS Secrets Manager)
+
+⚠️ **Use different keys for each environment**
+- Never use prod keys in dev
+- Never use dev keys locally
+
+⚠️ **Vercel Environment Variables**
+- Set via Vercel Dashboard, not in code
+- Use different values for Preview vs Production
+- Enable "Encrypt" for sensitive values
+
+---
+
+## 📁 Project Structure
+
+```
+zipparents-v1/
+├── app/                          # Next.js App Router
+│   ├── (auth)/                  # Auth route group
+│   │   ├── login/
+│   │   ├── signup/
+│   │   ├── verify-age/
+│   │   └── reset-password/
+│   ├── (legal)/                 # Legal pages
+│   │   ├── terms/
+│   │   ├── privacy/
+│   │   ├── community-guidelines/
+│   │   └── safety-tips/
+│   ├── (public)/                # Public marketing pages
+│   │   ├── how-it-works/
+│   │   ├── safety-trust/
+│   │   ├── for-parents/
+│   │   ├── faq/
+│   │   └── blog/
+│   ├── (protected)/             # Protected routes
+│   │   ├── feed/                # Community feed
+│   │   ├── profile/             # User profiles
+│   │   ├── messages/            # Messaging
+│   │   ├── calendar/            # Events & calendar
+│   │   ├── events/              # Event details
+│   │   └── search/              # Search parents
+│   ├── admin/                   # Admin panel
+│   │   ├── users/               # User management
+│   │   ├── reports/             # Content moderation
+│   │   ├── events/              # Event moderation
+│   │   └── logs/                # Moderation logs
+│   ├── api/                     # API routes
+│   │   └── health/              # Health check
+│   ├── layout.tsx               # Root layout
+│   ├── page.tsx                 # Homepage
+│   ├── globals.css              # Global styles
+│   ├── sitemap.ts               # Dynamic sitemap
+│   └── robots.ts                # Robots.txt
+│
+├── components/                   # React components
+│   ├── ui/                      # Reusable UI components
+│   │   ├── Button.tsx
+│   │   ├── Input.tsx
+│   │   ├── LoadingSkeleton.tsx
+│   │   ├── EmptyState.tsx
+│   │   └── ...
+│   ├── auth/                    # Auth components
+│   ├── feed/                    # Feed components
+│   ├── messages/                # Message components
+│   ├── events/                  # Event components
+│   ├── admin/                   # Admin components
+│   └── layout/                  # Layout components
+│       ├── Header.tsx
+│       ├── Footer.tsx
+│       └── Navigation.tsx
+│
+├── lib/                         # Shared libraries
+│   ├── firebase/
+│   │   ├── clientApp.ts         # Firebase client SDK
+│   │   └── adminApp.ts          # Firebase Admin SDK
+│   ├── seo/
+│   │   └── metadata.ts          # SEO utilities
+│   ├── analytics/
+│   │   └── ga.ts                # Google Analytics
+│   ├── admin/
+│   │   ├── users.ts             # User management
+│   │   ├── moderation.ts        # Moderation actions
+│   │   └── logs.ts              # Logging utilities
+│   └── utils/                   # Utility functions
+│
+├── contexts/                    # React contexts
+│   └── AuthContext.tsx          # Authentication context
+│
+├── hooks/                       # Custom React hooks
+│   └── useAuth.ts               # Auth hook
+│
+├── types/                       # TypeScript types
+│   ├── user.ts                  # User types
+│   ├── post.ts                  # Post types
+│   ├── event.ts                 # Event types
+│   ├── message.ts               # Message types
+│   └── admin.ts                 # Admin types
+│
+├── config/                      # Configuration files
+│   ├── firebase.local.ts        # Local config
+│   ├── firebase.dev.ts          # Dev config
+│   └── firebase.prod.ts         # Prod config
+│
+├── scripts/                     # Utility scripts
+│   ├── seed/
+│   │   ├── sprint1-users.ts     # Sprint 1 seed
+│   │   ├── sprint2-profiles.ts  # Sprint 2 seed
+│   │   ├── sprint4-messages.ts  # Sprint 4 seed
+│   │   ├── sprint5-events.ts    # Sprint 5 seed
+│   │   ├── sprint7-admin.ts     # Sprint 7 seed
+│   │   ├── seed-users.ts        # User seeding
+│   │   ├── seed-test-data.ts    # Full data seed
+│   │   └── clear-data.ts        # Data cleanup
+│   ├── deploy-dev.sh            # Dev deployment
+│   ├── deploy-prod.sh           # Prod deployment
+│   └── rollback-prod.sh         # Rollback script
+│
+├── tests/                       # Test files
+│   ├── e2e/                     # E2E tests
+│   │   ├── sprint1/             # Sprint 1 tests
+│   │   │   ├── signup.spec.ts
+│   │   │   ├── login.spec.ts
+│   │   │   ├── age-verification.spec.ts
+│   │   │   └── protected-routes.spec.ts
+│   │   ├── sprint4/             # Sprint 4 tests
+│   │   │   └── messaging.spec.ts
+│   │   ├── sprint5/             # Sprint 5 tests
+│   │   │   └── events.spec.ts
+│   │   ├── sprint6/             # Sprint 6 tests
+│   │   │   └── seo.spec.ts
+│   │   ├── sprint7/             # Sprint 7 tests
+│   │   │   ├── admin-access.spec.ts
+│   │   │   ├── user-management.spec.ts
+│   │   │   ├── content-moderation.spec.ts
+│   │   │   ├── moderation-logs.spec.ts
+│   │   │   ├── platform-metrics.spec.ts
+│   │   │   └── suspended-user-login.spec.ts
+│   │   └── critical-flows/      # Critical tests
+│   │       ├── complete-user-journey.spec.ts
+│   │       └── messaging-flow.spec.ts
+│   ├── security/                # Security tests
+│   │   ├── auth-security.spec.ts
+│   │   └── firestore-rules.spec.ts
+│   ├── accessibility/           # A11y tests
+│   │   └── axe-core.spec.ts
+│   ├── performance/             # Performance tests
+│   │   └── lighthouse.spec.ts
+│   ├── helpers/                 # Test helpers
+│   │   └── auth-test-helpers.ts
+│   └── utils/                   # Test utilities
+│       └── seo-helpers.ts
+│
+├── docs/                        # Documentation
+│   ├── DEPLOYMENT.md            # Deployment guide
+│   ├── TESTING.md               # Testing guide
+│   ├── USER-GUIDE.md            # User guide
+│   ├── ADMIN-GUIDE.md           # Admin guide
+│   └── SPRINT8-SUMMARY.md       # Sprint 8 summary
+│
+├── .env.local                   # Local env vars
+├── .env.dev.example             # Dev env template
+├── .env.prod.example            # Prod env template
+├── .firebaserc                  # Firebase projects
+├── firebase.json                # Firebase config
+├── firestore.rules              # Firestore security rules
+├── firestore.indexes.json       # Firestore indexes
+├── storage.rules                # Storage security rules
+├── playwright.config.ts         # Playwright config
+├── next.config.ts               # Next.js config
+├── tailwind.config.ts           # Tailwind config
+├── tsconfig.json                # TypeScript config
+├── package.json                 # Dependencies
+└── README.md                    # This file
+```
+
+### Key Files and Their Purposes
+
+**Configuration:**
+- `firebase.json` - Firebase emulators and deployment config
+- `firestore.rules` - Database security rules
+- `storage.rules` - File storage security rules
+- `next.config.ts` - Next.js build and runtime config
+- `playwright.config.ts` - E2E test configuration
+
+**Firebase:**
+- `lib/firebase/clientApp.ts` - Client-side Firebase initialization
+- `lib/firebase/adminApp.ts` - Server-side Firebase Admin SDK
+
+**Authentication:**
+- `contexts/AuthContext.tsx` - Global auth state
+- `hooks/useAuth.ts` - Auth hook for components
+- `app/(auth)/` - Auth-related pages
+
+**SEO:**
+- `lib/seo/metadata.ts` - Meta tag utilities
+- `app/sitemap.ts` - Dynamic sitemap generation
+- `app/robots.ts` - Robots.txt generation
+
+**Admin:**
+- `app/admin/` - Admin panel pages
+- `lib/admin/` - Admin utilities and actions
+- `components/admin/` - Admin-specific components
+
+---
+
+## 🧪 Testing Strategy
+
+### Test Types
+
+**1. E2E Tests (Playwright)**
+- Test complete user flows
+- Run in real browser
+- Cover critical paths
+- Automated in CI/CD
+
+**2. Integration Tests**
+- Test component interactions
+- Firebase integration
+- API route testing
+- Authentication flows
+
+**3. Unit Tests**
+- Test individual functions
+- Utility functions
+- Validation logic
+- Edge cases
+
+**4. Security Tests**
+- Firestore rules testing
+- Auth security
+- XSS/CSRF prevention
+- Input validation
+
+**5. Accessibility Tests**
+- WCAG 2.1 AA compliance
+- Keyboard navigation
+- Screen reader support
+- Color contrast
+
+**6. Performance Tests**
+- Lighthouse audits
+- Core Web Vitals
+- Load time testing
+- Bundle size monitoring
+
+### Coverage Requirements
+
+**Minimum coverage:**
+- Unit tests: 70%
+- E2E critical paths: 100%
+- Firestore rules: 100%
+
+**Current coverage:**
+- 170+ E2E tests
+- 90+ test scenarios
+- All critical flows covered
+
+### Test Data Management
+
+**Local (Emulators):**
+- Use seeded test data
+- Reset between test runs
+- Isolated test environment
+
+**Dev:**
+- Persistent test data
+- Can be reset
+- Shared across team
+
+**Production:**
+- Never run tests against prod
+- No test data in prod
+- Read-only monitoring only
+
+### Running Tests by Category
+
+```bash
+# E2E tests
+npm run test:e2e:local
+
+# Security tests
+TEST_ENV=local playwright test tests/security
+
+# Accessibility tests
+TEST_ENV=local playwright test tests/accessibility
+
+# Performance tests
+TEST_ENV=local playwright test tests/performance
+
+# Critical flows
+TEST_ENV=local playwright test tests/e2e/critical-flows
+```
+
+### Writing New Tests
+
+**Test file structure:**
+
+```typescript
+import { test, expect } from '@playwright/test';
+import { login } from '../helpers/auth-test-helpers';
+
+test.describe('Feature Name', () => {
+  test.beforeEach(async ({ page }) => {
+    // Setup
+    await login(page, 'user@test.com', 'password');
+  });
+
+  test('should perform action', async ({ page }) => {
+    // Arrange
+    await page.goto('/some-page');
+
+    // Act
+    await page.click('[data-testid="button"]');
+
+    // Assert
+    await expect(page.locator('h1')).toHaveText('Expected');
+  });
+});
+```
+
+**Best practices:**
+- Use data-testid for selectors
+- Test user flows, not implementation
+- Use helpers for common actions
+- Clean up test data
+- Make tests independent
+
+---
+
+## 🔒 Security
+
+### Firestore Security Rules
+
+**Rules location:** `firestore.rules`
+
+**Key security patterns:**
+
+```javascript
+// Users can only read/write their own data
+match /users/{userId} {
+  allow read: if request.auth != null;
+  allow write: if request.auth.uid == userId;
+}
+
+// Posts are public but only author can edit
+match /posts/{postId} {
+  allow read: if request.auth != null;
+  allow create: if request.auth != null;
+  allow update, delete: if request.auth.uid == resource.data.authorId;
+}
+
+// Admin-only collections
+match /moderationLogs/{logId} {
+  allow read: if request.auth != null &&
+              get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+}
+```
+
+**Testing rules:**
+
+```bash
+TEST_ENV=local playwright test tests/security/firestore-rules.spec.ts
+```
+
+### Storage Security Rules
+
+**Rules location:** `storage.rules`
+
+**Key patterns:**
+
+```javascript
+// User can only upload to their own folder
+match /users/{userId}/{allPaths=**} {
+  allow read: if request.auth != null;
+  allow write: if request.auth.uid == userId;
+}
+
+// Validate file size and type
+match /posts/{postId}/{fileName} {
+  allow write: if request.resource.size < 5 * 1024 * 1024  // 5MB
+              && request.resource.contentType.matches('image/.*');
+}
+```
+
+### API Security
+
+**Authentication:**
+- All API routes verify auth token
+- Firebase Admin SDK validates tokens
+- Session cookies for SSR
+
+**Rate Limiting:**
+- Implement rate limiting on sensitive endpoints
+- Use Firebase App Check for abuse prevention
+
+**Input Validation:**
+- Validate all user inputs
+- Sanitize data before saving
+- Use TypeScript for type safety
+
+**XSS Prevention:**
+- React auto-escapes output
+- Use dangerouslySetInnerHTML carefully
+- Sanitize user-generated HTML
+
+**CSRF Protection:**
+- SameSite cookies
+- CSRF tokens for state-changing operations
+- Verify origin headers
+
+### Security Checklist
+
+**Development:**
+- [ ] Never commit .env files
+- [ ] Never log sensitive data
+- [ ] Use environment variables for secrets
+- [ ] Rotate API keys regularly
+
+**Deployment:**
+- [ ] Firestore rules deployed
+- [ ] Storage rules deployed
+- [ ] HTTPS enforced
+- [ ] Security headers configured
+
+**Monitoring:**
+- [ ] Error tracking enabled (Sentry)
+- [ ] Audit logs for admin actions
+- [ ] Monitor failed login attempts
+- [ ] Track unusual activity patterns
+
+---
+
+## 📈 Monitoring and Maintenance
+
+### Daily Tasks (Moderation Queue)
+
+**Morning (9 AM):**
+- [ ] Check pending reports queue (`/admin/reports`)
+- [ ] Review flagged content
+- [ ] Respond to urgent reports (< 2 hours)
+- [ ] Check suspended users list
+
+**Afternoon (2 PM):**
+- [ ] Review new user signups
+- [ ] Check for spam posts/events
+- [ ] Monitor message reports
+- [ ] Update moderation logs
+
+**Evening (6 PM):**
+- [ ] Final report queue check
+- [ ] Escalate unresolved issues
+- [ ] Prepare handoff notes
+- [ ] Update team on actions taken
+
+### Weekly Tasks (Review Reports)
+
+**Monday:**
+- [ ] Review weekly metrics dashboard
+- [ ] Analyze user growth trends
+- [ ] Check platform performance
+- [ ] Review error logs
+
+**Wednesday:**
+- [ ] Audit moderation actions from past week
+- [ ] Review banned/suspended users
+- [ ] Update content guidelines if needed
+- [ ] Team sync on moderation issues
+
+**Friday:**
+- [ ] Generate weekly report
+  - New users count
+  - Active users
+  - Posts/events created
+  - Reports resolved
+  - Actions taken
+- [ ] Review and close resolved reports
+- [ ] Clean up old test data
+- [ ] Backup database
+
+### Monthly Tasks (Analytics Review)
+
+**First Week:**
+- [ ] Comprehensive analytics review
+  - User growth month-over-month
+  - Engagement metrics (DAU/MAU)
+  - Retention rates
+  - Top features used
+- [ ] Performance audit
+  - Lighthouse scores
+  - Core Web Vitals
+  - Load times
+  - Bundle sizes
+
+**Second Week:**
+- [ ] Security audit
+  - Review Firestore rules
+  - Check for vulnerabilities
+  - Update dependencies
+  - Rotate API keys
+- [ ] Database maintenance
+  - Optimize indexes
+  - Clean old data
+  - Archive inactive users
+
+**Third Week:**
+- [ ] Feature usage analysis
+  - Most used features
+  - Least used features
+  - User feedback review
+  - A/B test results
+- [ ] Content review
+  - Popular posts
+  - Successful events
+  - Community trends
+
+**Fourth Week:**
+- [ ] Planning and improvements
+  - Roadmap review
+  - Sprint planning
+  - Bug prioritization
+  - Feature requests review
+- [ ] Team retrospective
+  - What went well
+  - What to improve
+  - Action items
+
+### Error Monitoring
+
+**Setup (Recommended: Sentry):**
+
+```bash
+npm install @sentry/nextjs
+```
+
+**Monitor:**
+- JavaScript errors
+- API errors
+- Failed Firebase operations
+- Performance issues
+
+**Alert on:**
+- Error rate > 1%
+- Response time > 3s
+- Failed logins > 100/hour
+- 500 errors
+
+### Performance Monitoring
+
+**Metrics to track:**
+- **Core Web Vitals:**
+  - LCP (Largest Contentful Paint) < 2.5s
+  - FID (First Input Delay) < 100ms
+  - CLS (Cumulative Layout Shift) < 0.1
+
+- **Custom Metrics:**
+  - Time to First Byte (TTFB)
+  - Time to Interactive (TTI)
+  - Total Blocking Time (TBT)
+
+**Tools:**
+- Lighthouse CI
+- WebPageTest
+- Chrome DevTools
+- Firebase Performance Monitoring
+
+### Database Monitoring
+
+**Firestore:**
+- Document reads/writes per day
+- Storage size
+- Index usage
+- Query performance
+
+**Alerts:**
+- Reads > 1M/day
+- Writes > 500K/day
+- Storage > 80% quota
+- Failed queries > 1%
+
+---
 
 ## 🐛 Troubleshooting
 
-### Firebase Emulators won't start
+### Common Issues and Solutions
 
-**Problem**: Port already in use
+#### 1. Firebase Emulators Won't Start
 
-**Solution**:
+**Problem:** Port already in use
+
+```
+Error: Port 8080 is already in use
+```
+
+**Solution:**
+
 ```bash
-# Find and kill process on port 8080 (Firestore)
+# Find process on port 8080
+lsof -ti:8080
+
+# Kill the process
 lsof -ti:8080 | xargs kill -9
 
 # Or use different ports in firebase.json
 ```
 
-### "Firebase not initialized" error
+**Problem:** Emulator data corrupted
 
-**Problem**: Firebase not properly initialized
+**Solution:**
 
-**Solution**:
-1. Check that environment variables are set correctly
-2. Verify NEXT_PUBLIC_FIREBASE_ENV matches your environment
-3. Restart the dev server
+```bash
+# Delete emulator data
+rm -rf firebase-emulator-data/
 
-### Seeding fails with authentication error
+# Restart emulators
+npm run emulators:start
+```
 
-**Problem**: Missing or invalid service account credentials
+#### 2. "Firebase Not Initialized" Error
 
-**Solution**:
-1. For local: Ensure emulators are running first
-2. For dev/prod: Check FIREBASE_SERVICE_ACCOUNT_KEY in .env file
-3. Verify the service account has proper permissions
+**Problem:** Firebase app not initialized properly
 
-### Tests fail to connect to emulators
+**Solution:**
 
-**Problem**: Emulators not running or wrong ports
+```bash
+# Check environment variable
+echo $NEXT_PUBLIC_FIREBASE_ENV
 
-**Solution**:
+# Should be: local, dev, or prod
+# If empty, set it:
+export NEXT_PUBLIC_FIREBASE_ENV=local
+
+# Restart dev server
+npm run dev:local
+```
+
+**Problem:** Wrong environment config loaded
+
+**Solution:**
+
+```typescript
+// Check lib/firebase/clientApp.ts
+// Ensure getFirebaseConfig() returns correct config
+console.log(process.env.NEXT_PUBLIC_FIREBASE_ENV);
+```
+
+#### 3. Seeding Fails with Authentication Error
+
+**Problem:** Missing service account credentials
+
+```
+Error: Failed to initialize Firebase Admin SDK
+```
+
+**Solution for local:**
+
+```bash
+# Ensure emulators are running
+npm run emulators:start
+
+# In another terminal:
+npm run seed:sprint1
+```
+
+**Solution for dev/prod:**
+
+```bash
+# Check .env.dev has FIREBASE_SERVICE_ACCOUNT_KEY
+cat .env.dev | grep FIREBASE_SERVICE_ACCOUNT_KEY
+
+# If missing, generate from Firebase Console:
+# Settings > Service Accounts > Generate Private Key
+```
+
+#### 4. Tests Fail to Connect to Emulators
+
+**Problem:** Emulators not running
+
+```
+Error: connect ECONNREFUSED 127.0.0.1:8080
+```
+
+**Solution:**
+
 ```bash
 # Start emulators first
 npm run emulators:start
 
-# In another terminal, run tests
+# In another terminal:
 npm run test:e2e:local
 ```
 
-### Build fails with TypeScript errors
+**Problem:** Wrong TEST_ENV
 
-**Problem**: Type errors in code
+**Solution:**
 
-**Solution**:
+```bash
+# Ensure TEST_ENV is set
+TEST_ENV=local npm run test:e2e
+
+# Or update playwright.config.ts
+```
+
+#### 5. Build Fails with TypeScript Errors
+
+**Problem:** Type errors
+
+```
+Error: Type 'string | undefined' is not assignable to type 'string'
+```
+
+**Solution:**
+
 ```bash
 # Check types
 npm run type-check
 
-# Fix errors and rebuild
-npm run build
+# Fix errors in code
+# Common fixes:
+// Add type guards
+if (typeof value === 'string') { ... }
+
+// Add default values
+const name = user?.name ?? 'Unknown';
+
+// Use type assertions carefully
+const name = user!.name;
 ```
 
-### Permission denied when running scripts
+#### 6. Permission Denied When Running Scripts
 
-**Problem**: Script files not executable
+**Problem:** Scripts not executable
 
-**Solution**:
+```
+bash: ./scripts/run-script.sh: Permission denied
+```
+
+**Solution:**
+
 ```bash
 chmod +x scripts/run-script.sh
+chmod +x scripts/*.sh
+
+# Verify
+ls -la scripts/
 ```
 
-## 📚 Additional Resources
+#### 7. Images Not Loading
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Firebase Documentation](https://firebase.google.com/docs)
-- [Playwright Documentation](https://playwright.dev/docs/intro)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+**Problem:** Storage rules blocking access
 
-## 🤝 Contributing
+**Solution:**
 
-1. Create a feature branch from `main`
-2. Make your changes
-3. Run tests and linting
-4. Create a pull request
+```bash
+# Check storage.rules
+cat storage.rules
 
-## 📄 License
+# Deploy updated rules
+firebase deploy --only storage:rules
 
-ISC
+# Or allow public read (dev only):
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```
 
-## 👥 Support
+#### 8. Slow Page Loads
 
-For issues and questions:
-- Create an issue in the GitHub repository
-- Contact the development team
+**Problem:** Large bundle size
+
+**Solution:**
+
+```bash
+# Analyze bundle
+npm run build
+npm run analyze  # If script exists
+
+# Optimize:
+# - Use dynamic imports
+# - Remove unused dependencies
+# - Optimize images
+# - Enable compression
+```
+
+**Problem:** Too many Firestore reads
+
+**Solution:**
+
+```typescript
+// Use pagination
+const query = firestore()
+  .collection('posts')
+  .limit(20)
+  .orderBy('createdAt', 'desc');
+
+// Cache results
+import { cache } from 'react';
+const getCachedPosts = cache(async () => { ... });
+```
+
+#### 9. Admin Panel Not Accessible
+
+**Problem:** User not admin
+
+```
+Error: Access denied
+```
+
+**Solution:**
+
+```bash
+# Seed admin user
+npm run seed:sprint7
+
+# Or manually set role in Firestore UI:
+# users/{userId} -> role: 'admin'
+
+# Login with:
+# Email: admin.test@test.com
+# Password: Test123!
+```
+
+#### 10. Deployment Fails
+
+**Problem:** Firebase CLI not logged in
+
+```
+Error: Not authorized
+```
+
+**Solution:**
+
+```bash
+# Login to Firebase
+firebase login
+
+# Verify login
+firebase projects:list
+
+# Use correct project
+firebase use dev  # or prod
+```
+
+**Problem:** Vercel deployment fails
+
+**Solution:**
+
+```bash
+# Check environment variables
+vercel env ls
+
+# Pull env vars
+vercel env pull
+
+# Redeploy
+vercel --prod
+```
+
+### Getting Help
+
+**Documentation:**
+- [Next.js Docs](https://nextjs.org/docs)
+- [Firebase Docs](https://firebase.google.com/docs)
+- [Playwright Docs](https://playwright.dev)
+
+**Community:**
+- GitHub Issues: [Report a bug](https://github.com/abhie1singh/zipparents-v1/issues)
+- Team Slack: #zipparents-support
+- Stack Overflow: Tag [zipparents]
+
+**Support Channels:**
+- Email: dev@zipparents.com
+- Slack: #engineering
+- Emergency: [On-call number]
 
 ---
 
-**Happy coding! 🚀**
+## 🤝 Contributing
+
+### Code Style Guide
+
+**TypeScript:**
+- Use strict TypeScript (`strict: true`)
+- No `any` types (use `unknown` if needed)
+- Define interfaces for all data structures
+- Use enums for constants
+
+**React:**
+- Use functional components
+- Use hooks over classes
+- Keep components small and focused
+- Extract reusable logic to hooks
+
+**Naming Conventions:**
+- Components: PascalCase (`UserProfile.tsx`)
+- Hooks: camelCase with `use` prefix (`useAuth.ts`)
+- Utilities: camelCase (`formatDate.ts`)
+- Constants: UPPER_SNAKE_CASE (`MAX_FILE_SIZE`)
+
+**File Organization:**
+- One component per file
+- Co-locate tests with components
+- Group related components in folders
+- Keep files under 300 lines
+
+### Commit Message Format
+
+**Format:**
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+**Types:**
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation
+- `style`: Code style (formatting)
+- `refactor`: Code refactoring
+- `test`: Tests
+- `chore`: Maintenance
+
+**Examples:**
+
+```bash
+# Feature
+git commit -m "feat(auth): add password reset flow
+
+- Add reset password page
+- Implement email sending
+- Add tests for reset flow"
+
+# Bug fix
+git commit -m "fix(feed): correct post timestamp display
+
+The post timestamps were showing incorrect relative time.
+Fixed by using date-fns format function."
+
+# Documentation
+git commit -m "docs: update deployment guide
+
+Added section on environment variables"
+```
+
+### Pull Request Process
+
+**1. Create PR from feature branch:**
+- Title: Brief description
+- Description: Detailed changes
+- Link related issues
+- Add screenshots for UI changes
+
+**2. PR template:**
+
+```markdown
+## Description
+Brief description of changes
+
+## Type of Change
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+- [ ] Documentation
+
+## Testing
+- [ ] Tests added/updated
+- [ ] All tests passing
+- [ ] Manual testing completed
+
+## Checklist
+- [ ] Code follows style guide
+- [ ] Self-review completed
+- [ ] Documentation updated
+- [ ] No console.log statements
+```
+
+**3. Review process:**
+- Request 1-2 reviewers
+- Address all comments
+- Update based on feedback
+- Get approval before merging
+
+**4. Merge requirements:**
+- ✅ All tests passing
+- ✅ No linting errors
+- ✅ At least 1 approval
+- ✅ Up to date with main
+
+### Development Guidelines
+
+**Before starting:**
+- Check existing issues
+- Create issue if doesn't exist
+- Discuss approach in issue
+- Get approval for large changes
+
+**While developing:**
+- Write tests for new features
+- Update documentation
+- Follow code style guide
+- Make small, focused commits
+
+**Before submitting:**
+- Run all tests locally
+- Check for linting errors
+- Update CHANGELOG
+- Self-review your code
+
+---
+
+## 📄 License and Legal
+
+### License
+
+**ISC License**
+
+Copyright (c) 2024 ZipParents
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+### Legal Considerations
+
+**Age Verification:**
+- COPPA compliant (18+ requirement)
+- Age verification enforced at signup
+- Cannot create account if under 18
+
+**Privacy:**
+- Privacy Policy available at `/privacy`
+- GDPR compliant data handling
+- User data encryption at rest
+- User can delete account and data
+
+**Terms of Service:**
+- Terms available at `/terms`
+- Users must accept to create account
+- Updates to terms notify users
+
+**Content Moderation:**
+- Community Guidelines at `/community-guidelines`
+- Report and block functionality
+- Admin moderation tools
+- Content removal process
+
+**Safety:**
+- Safety tips at `/safety-tips`
+- In-person meetup safety guidelines
+- Required safety acknowledgment for events
+
+**Data Security:**
+- Firestore security rules enforced
+- User data access restricted
+- Admin actions logged
+- Regular security audits
+
+**Third-Party Services:**
+- Firebase (Google) - Backend services
+- Vercel - Hosting
+- Google Analytics - Analytics
+
+### Compliance Checklist
+
+**COPPA (Children's Online Privacy Protection Act):**
+- [x] 18+ age verification
+- [x] Age gate at registration
+- [x] No collection of children's data
+- [x] Privacy policy includes COPPA statement
+
+**GDPR (General Data Protection Regulation):**
+- [x] Privacy policy available
+- [x] Cookie consent banner
+- [x] User data export capability
+- [x] User data deletion capability
+- [x] Data breach notification process
+
+**Accessibility (WCAG 2.1 AA):**
+- [x] Keyboard navigation
+- [x] Screen reader support
+- [x] Color contrast requirements
+- [x] ARIA labels
+- [x] Focus management
+
+**Security:**
+- [x] HTTPS enforced
+- [x] Secure authentication
+- [x] Input sanitization
+- [x] XSS/CSRF protection
+- [x] Rate limiting
+
+---
+
+## 🚀 Quick Start Commands
+
+```bash
+# Setup
+git clone https://github.com/abhie1singh/zipparents-v1.git
+cd zipparents-v1
+npm install
+
+# Development (Local)
+npm run emulators:start    # Terminal 1
+npm run seed:local         # Terminal 2 (once)
+npm run dev                # Terminal 2
+
+# Testing
+npm run test:e2e:local     # All tests
+npm run test:e2e:ui        # Interactive
+
+# Deployment
+npm run build:dev          # Dev build
+npm run build:prod         # Prod build
+```
+
+---
+
+## 📞 Support
+
+**Development Team:**
+- Email: dev@zipparents.com
+- Slack: #zipparents-dev
+
+**Issues:**
+- GitHub: [Create Issue](https://github.com/abhie1singh/zipparents-v1/issues)
+
+**Documentation:**
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [Testing Guide](docs/TESTING.md)
+- [User Guide](docs/USER-GUIDE.md)
+- [Admin Guide](docs/ADMIN-GUIDE.md)
+
+---
+
+**Built with ❤️ by the ZipParents team**
+
+🚀 **Happy coding!**
