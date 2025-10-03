@@ -23,6 +23,13 @@ export const TEST_USERS = {
     dateOfBirth: '1988-03-22',
     zipCode: '10001',
   },
+  admin: {
+    email: 'admin.test@test.com',
+    password: 'Test123!',
+    displayName: 'Admin User',
+    dateOfBirth: '1985-01-01',
+    zipCode: '10001',
+  },
   new: {
     email: `test-${Date.now()}@test.com`,
     password: 'Test123!',

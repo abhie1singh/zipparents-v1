@@ -25,6 +25,13 @@ async function globalSetup() {
       timeout: 30000
     });
 
+    // Seed Sprint 7 admin data
+    console.log('\n🌱 Seeding Sprint 7 admin data...');
+    execSync('FIREBASE_ENV=local ./scripts/run-script.sh scripts/seed/sprint7-admin.ts', {
+      stdio: 'inherit',
+      timeout: 30000
+    });
+
     console.log('\n✅ Test database setup complete!\n');
   } catch (error) {
     console.error('❌ Failed to setup test database:', error);

@@ -321,6 +321,42 @@ service cloud.firestore {
         (resource.data.authorId == request.auth.uid || isAdmin());
     }
 
+    // Moderation logs collection (Sprint 7)
+    match /moderationLogs/{logId} {
+      // Only admins can read moderation logs
+      allow read: if isAdmin();
+
+      // Only admins can create moderation logs
+      allow create: if isAdmin() &&
+        request.resource.data.keys().hasAll(['action', 'performedBy', 'performedByName', 'targetUserId', 'targetUserName', 'timestamp']);
+
+      // No updates or deletes (logs are immutable)
+      allow update, delete: if false;
+    }
+
+    // Activity logs collection (Sprint 7)
+    match /activityLogs/{logId} {
+      // Only admins can read activity logs
+      allow read: if isAdmin();
+
+      // System can create activity logs
+      allow create: if isAuthenticated() &&
+        request.resource.data.userId is string &&
+        request.resource.data.action is string &&
+        request.resource.data.timestamp != null;
+
+      // No updates or deletes
+      allow update, delete: if false;
+    }
+
+    // Admin can update user status and verification (Sprint 7)
+    match /users/{userId} {
+      // Admins can update user status fields
+      allow update: if isAdmin() &&
+        request.resource.data.uid == resource.data.uid &&
+        request.resource.data.email == resource.data.email;
+    }
+
     // Default deny all other documents
     match /{document=**} {
       allow read, write: if false;
